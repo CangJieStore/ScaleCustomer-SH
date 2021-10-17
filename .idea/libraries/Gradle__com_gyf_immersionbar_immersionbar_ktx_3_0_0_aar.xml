@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="Gradle: com.gyf.immersionbar:immersionbar-ktx:3.0.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/f69d1deb84790f118b2032274a16ee47/transformed/jetified-immersionbar-ktx-3.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f69d1deb84790f118b2032274a16ee47/transformed/jetified-immersionbar-ktx-3.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f69d1deb84790f118b2032274a16ee47/transformed/jetified-immersionbar-ktx-3.0.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/47f5c075a8291e87c7cbc509533f085a/transformed/jetified-immersionbar-ktx-3.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/47f5c075a8291e87c7cbc509533f085a/transformed/jetified-immersionbar-ktx-3.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/47f5c075a8291e87c7cbc509533f085a/transformed/jetified-immersionbar-ktx-3.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ac20ab384df5991b855313419c937d0f/transformed/jetified-immersionbar-ktx-3.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/369f01deb86266d4106c23388f624744/transformed/jetified-immersionbar-ktx-3.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/369f01deb86266d4106c23388f624744/transformed/jetified-immersionbar-ktx-3.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/369f01deb86266d4106c23388f624744/transformed/jetified-immersionbar-ktx-3.0.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.gyf.immersionbar/immersionbar-ktx/3.0.0/8061053313b2956e81b91d372feb4d630a2a5f94/immersionbar-ktx-3.0.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.gyf.immersionbar/immersionbar-ktx/3.0.0/ece6c59aa0bb728799fad5332dc7e80653360256/immersionbar-ktx-3.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

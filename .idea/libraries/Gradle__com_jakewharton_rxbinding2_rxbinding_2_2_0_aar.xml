@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="Gradle: com.jakewharton.rxbinding2:rxbinding:2.2.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/9657be0a2bd9dfa03fb346cdeac99eb2/transformed/jetified-rxbinding-2.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9657be0a2bd9dfa03fb346cdeac99eb2/transformed/jetified-rxbinding-2.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9657be0a2bd9dfa03fb346cdeac99eb2/transformed/jetified-rxbinding-2.2.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c5837641b4544e451330c9cac9b79c7e/transformed/jetified-rxbinding-2.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c5837641b4544e451330c9cac9b79c7e/transformed/jetified-rxbinding-2.2.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c5837641b4544e451330c9cac9b79c7e/transformed/jetified-rxbinding-2.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/00290e2d4cb836cfd275fa2d6af0abaf/transformed/jetified-rxbinding-2.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0671178e96fe4019715c9d54a48661ef/transformed/jetified-rxbinding-2.2.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0671178e96fe4019715c9d54a48661ef/transformed/jetified-rxbinding-2.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0671178e96fe4019715c9d54a48661ef/transformed/jetified-rxbinding-2.2.0/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton.rxbinding2/rxbinding/2.2.0/2451ae574a8c45f839f95290ab58975ee469ca03/rxbinding-2.2.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton.rxbinding2/rxbinding/2.2.0/e41c789dcae348ebf518e3a14a4521ca0a2e1e46/rxbinding-2.2.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

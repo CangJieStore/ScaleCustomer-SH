@@ -1,0 +1,22 @@
+<component name="libraryTable">
+  <library name="Gradle: com.gyf.immersionbar:immersionbar-components:3.0.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b9311c267aab1261b13d86880eee6313/transformed/jetified-immersionbar-components-3.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b9311c267aab1261b13d86880eee6313/transformed/jetified-immersionbar-components-3.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b9311c267aab1261b13d86880eee6313/transformed/jetified-immersionbar-components-3.0.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/16751414943c0a6e98079f89269c0836/transformed/jetified-immersionbar-components-3.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/16751414943c0a6e98079f89269c0836/transformed/jetified-immersionbar-components-3.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/16751414943c0a6e98079f89269c0836/transformed/jetified-immersionbar-components-3.0.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/59a7a0f09931923bd42b71cfa7906c78/transformed/jetified-immersionbar-components-3.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e606c79675a5060d60e75e7fd29eccba/transformed/jetified-immersionbar-components-3.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/e606c79675a5060d60e75e7fd29eccba/transformed/jetified-immersionbar-components-3.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e606c79675a5060d60e75e7fd29eccba/transformed/jetified-immersionbar-components-3.0.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.gyf.immersionbar/immersionbar-components/3.0.0/7ac1db3961991dbad25eb35b53432927ef3329d2/immersionbar-components-3.0.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.gyf.immersionbar/immersionbar-components/3.0.0/b7bc447ec8bb908b63a9b9eb8b62d209444b822f/immersionbar-components-3.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

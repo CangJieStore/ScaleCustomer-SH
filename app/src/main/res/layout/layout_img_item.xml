@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="path"
+            type="String" />
+
+        <variable
+            name="pos"
+            type="String" />
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="90dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/dp10"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/dp_4"
+        app:cardElevation="@dimen/dp_4">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                binding:url="@{path}" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@{pos}"
+                android:textColor="#FF0000"
+                android:textSize="@dimen/sp18" />
+        </FrameLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</layout>

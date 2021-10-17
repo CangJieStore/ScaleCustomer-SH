@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScaleCustomerCheck-SH.iml" filepath="$PROJECT_DIR$/.idea/modules/ScaleCustomerCheck-SH.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ScaleCustomerCheck-SH.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ScaleCustomerCheck-SH.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ncalendar/ScaleCustomerCheck-SH.ncalendar.iml" filepath="$PROJECT_DIR$/.idea/modules/ncalendar/ScaleCustomerCheck-SH.ncalendar.iml" />
+    </modules>
+  </component>
+</project>

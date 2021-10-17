@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="onClickCommand" format="reference" />
+    <attr name="isThrottleFirst" format="boolean" />
+    <attr name="url" format="string" />
+
+    <declare-styleable name="View">
+        <attr name="onClickCommand" />
+        <attr name="isThrottleFirst" />
+    </declare-styleable>
+
+    <declare-styleable name="ImageView">
+        <attr name="url" />
+        <attr name="request_width" format="integer" />
+        <attr name="request_height" format="integer" />
+        <attr name="placeholderRes" format="reference|color" />
+        <attr name="onSuccessCommand" format="reference" />
+        <attr name="onFailureCommand" format="reference" />
+
+    </declare-styleable>
+    <attr name="pressedAlpha" format="float" />
+    <attr name="disabledAlpha" format="float" />
+    <declare-styleable name="MultiImageView">
+        <attr name="miv_singleImgSize" format="dimension" />
+        <attr name="miv_imgGap" format="dimension" />
+        <attr name="miv_maxSize" format="integer" />
+        <attr name="miv_isShowText" format="boolean" />
+        <attr name="miv_scaleType" format="enum">
+            <enum name="matrix" value="0" />
+            <enum name="fitXY" value="1" />
+            <enum name="fitStart" value="2" />
+            <enum name="fitCenter" value="3" />
+            <enum name="fitEnd" value="4" />
+            <enum name="center" value="5" />
+            <enum name="centerCrop" value="6" />
+            <enum name="centerInside" value="7" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="ScannerView">
+        <attr name="maskColor" format="color" />
+        <attr name="frameColor" format="color" />
+        <attr name="cornerColor" format="color" />
+        <attr name="laserColor" format="color" />
+        <attr name="resultPointColor" format="color" />
+        <attr name="labelText" format="string" />
+        <attr name="labelTextColor" format="color" />
+        <attr name="labelTextSize" format="dimension" />
+        <attr name="labelTextPadding" format="dimension" />
+        <attr name="labelTextLocation" format="enum">
+            <enum name="top" value="0" />
+            <enum name="bottom" value="1" />
+        </attr>
+        <attr name="showResultPoint" format="boolean" />
+        <attr name="frameWidth" format="dimension" />
+        <attr name="frameHeight" format="dimension" />
+        <attr name="gridColumn" format="integer" />
+        <attr name="gridHeight" format="dimension" />
+        <attr name="laserStyle" format="enum">
+            <enum name="none" value="0" />
+            <enum name="line" value="1" />
+            <enum name="grid" value="2" />
+        </attr>
+        <attr name="cornerRectWidth" format="dimension" />
+        <attr name="cornerRectHeight" format="dimension" />
+        <attr name="scannerLineMoveDistance" format="dimension" />
+        <attr name="scannerLineHeight" format="dimension" />
+        <attr name="frameLineWidth" format="dimension" />
+        <attr name="scannerAnimationDelay" format="integer" />
+        <attr name="frameRatio" format="float" />
+    </declare-styleable>
+</resources>

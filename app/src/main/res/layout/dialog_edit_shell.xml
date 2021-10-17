@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:contentPadding="@dimen/dp15"
+        binding:cardBackgroundColor="@color/white"
+        binding:cardCornerRadius="@dimen/dp5"
+        binding:cardElevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp15"
+                android:text="请输入去皮重量"
+                android:textColor="@color/black_3"
+                android:textSize="@dimen/sp18" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edit_shell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp15"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:hint="去皮重量"
+                android:inputType="numberDecimal"
+                android:padding="@dimen/dp15"
+                android:textColor="@color/black_3"
+                android:textColorHint="@color/gray_9"
+                android:textSize="@dimen/sp18" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/gray_9" />
+
+
+            <RelativeLayout
+                android:id="@+id/rl_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginEnd="@dimen/dp15">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/action_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp5"
+                    android:layout_toLeftOf="@+id/action_done"
+                    android:padding="@dimen/dp15"
+                    android:text="取消"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp18" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/action_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/dp15"
+                    android:text="确定"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp18" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</layout>

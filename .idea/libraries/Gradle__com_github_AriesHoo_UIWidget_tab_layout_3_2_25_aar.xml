@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.AriesHoo.UIWidget:tab-layout:3.2.25@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c8a944e09f31d5fb27a0df01871528db/transformed/jetified-tab-layout-3.2.25/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c8a944e09f31d5fb27a0df01871528db/transformed/jetified-tab-layout-3.2.25/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c8a944e09f31d5fb27a0df01871528db/transformed/jetified-tab-layout-3.2.25/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.AriesHoo.UIWidget/tab-layout/3.2.25/c3f34e18ac4c5cb707773c86946b03a182ad3cc2/tab-layout-3.2.25-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.AriesHoo.UIWidget/tab-layout/3.2.25/82d3e862edd8f7d00a51f2c67966e7723e027cc0/tab-layout-3.2.25-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

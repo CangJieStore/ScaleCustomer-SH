@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:binding="http://schemas.android.com/apk/res-auto">
+
+
+    <data>
+
+        <variable
+            name="info"
+            type="com.cangjie.scalage.entity.OrderInfo" />
+
+        <variable
+            name="detailModel"
+            type="com.cangjie.scalage.vm.ScaleViewModel" />
+
+        <variable
+            name="adapter"
+            type="com.chad.library.adapter.base.BaseQuickAdapter" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/shape_main_bg"
+            android:padding="@dimen/dp10">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp30"
+                android:layout_marginTop="@dimen/dp5"
+                android:layout_marginBottom="@dimen/dp5"
+                android:src="@drawable/ic_main_logo"
+                android:visibility="invisible" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableStart="@drawable/ic_back"
+                android:drawablePadding="@dimen/dp8"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp25"
+                android:paddingEnd="@dimen/dp25"
+                android:text="@string/str_detail"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp24"
+                binding:onClickCommand="@{detailModel.detailClose}" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="30dp"
+            android:paddingTop="@dimen/dp15"
+            android:paddingEnd="30sp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_delivery_company"
+                android:drawablePadding="@dimen/dp5"
+                android:gravity="center_vertical"
+                android:text="@{@string/str_company+info.circulate_name}"
+                android:textColor="@color/black_3"
+                android:textSize="@dimen/sp18" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:drawableStart="@drawable/ic_trade_no"
+                android:drawablePadding="@dimen/dp5"
+                android:gravity="center_vertical"
+                android:text="@{@string/str_strade_no+info.trade_no}"
+                android:textColor="@color/black_3"
+                android:textSize="@dimen/sp18" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_4"
+                android:drawableStart="@drawable/ic_delivery_date"
+                android:drawablePadding="@dimen/dp5"
+                android:gravity="center_vertical"
+                android:text="@{@string/str_delivery_date+info.collect_time}"
+                android:textColor="@color/black_3"
+                android:textSize="@dimen/sp18" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp25"
+            android:layout_marginTop="@dimen/dp15"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已验收商品"
+                android:textColor="#51A644"
+                android:textSize="@dimen/sp18" />
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/dp5"
+                android:background="#51A644" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp30"
+            android:layout_marginTop="@dimen/dp15"
+            android:layout_marginEnd="@dimen/dp30"
+            android:layout_marginBottom="@dimen/dp30"
+            android:background="@drawable/shape_choose_date"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/shape_table_top"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:gravity="center"
+                    android:text="序号"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/sp16" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_c" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:gravity="center"
+                    android:text="商品名称"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/sp16" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_c" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:gravity="center"
+                    android:text="规格"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/sp16" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_c" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:gravity="center"
+                    android:text="配送数量"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/sp16" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_c" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:gravity="center"
+                    android:text="验收数量"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/sp16" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_c" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:gravity="center"
+                    android:text="验收单位"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/sp16" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_c" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:gravity="center"
+                    android:text="图片"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/sp16" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_c" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="验收日期"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/sp16" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_c" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:gravity="center"
+                    android:text="入库类型"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/sp16" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/gray_c" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="操作"
+                    android:textColor="@color/black_3"
+                    android:textSize="@dimen/sp16" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ry_orders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                binding:adapter="@{adapter}"
+                binding:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

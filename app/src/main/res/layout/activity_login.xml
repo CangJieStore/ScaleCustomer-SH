@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:binding="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="loginModel"
+            type="com.cangjie.scalage.vm.ScaleViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/bg_login_title" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_exit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:padding="30dp"
+                android:text="退出程序"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp24" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="600dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/shape_edit_bg"
+                android:hint="@string/hint_account"
+                android:inputType="number"
+                android:paddingStart="20dp"
+                android:text="@={loginModel.usernameFiled}"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray_9"
+                android:textSize="@dimen/sp22" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="600dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/shape_edit_bg"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"
+                android:paddingStart="20dp"
+                android:text="@={loginModel.passwordFiled}"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray_9"
+                android:textSize="@dimen/sp22" />
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="300dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/shape_login_btn"
+            android:text="登录"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            binding:onClickCommand="@{loginModel.loginCommand}" />
+
+    </LinearLayout>
+</layout>

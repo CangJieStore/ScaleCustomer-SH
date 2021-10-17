@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="path"
+            type="String" />
+
+        <variable
+            name="adapter"
+            type="com.chad.library.adapter.base.BaseQuickAdapter" />
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:contentPadding="@dimen/dp15"
+        binding:cardBackgroundColor="@color/white"
+        binding:cardCornerRadius="@dimen/dp5"
+        binding:cardElevation="0dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/dp15"
+                    android:text="验收完毕"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp22" />
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/iv_close"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp15"
+                    android:src="@mipmap/ic_close_preview" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/dp15"
+                android:paddingEnd="@dimen/dp15">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_submit_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black_3"
+                        android:textSize="@dimen/sp18" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_buy_count"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black_3"
+                        android:textSize="@dimen/sp18" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_submit_total"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black_3"
+                        android:textSize="@dimen/sp18" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_send_unit"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="配送单位："
+                        android:textColor="@color/black_3"
+                        android:textSize="@dimen/sp18" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp15"
+                android:layout_marginTop="@dimen/dp15"
+                android:layout_marginEnd="@dimen/dp15"
+                android:background="@drawable/shape_choose_date"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/shape_table_top"
+                    android:orientation="horizontal">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="批次"
+                        android:textColor="@color/black_3"
+                        android:textSize="@dimen/sp18" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/gray_c" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="验收数量"
+                        android:textColor="@color/black_3"
+                        android:textSize="@dimen/sp18" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/gray_c" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="图片"
+                        android:textColor="@color/black_3"
+                        android:textSize="@dimen/sp18" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/ry_submit"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        binding:adapter="@{adapter}" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp15"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="商品类型"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp18" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp15"
+                    android:text="提示：请选择商品入库类型"
+                    android:textColor="#F14646"
+                    android:textSize="@dimen/sp18" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/dp_40"
+                android:paddingEnd="@dimen/dp_40">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_type1"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="@dimen/dp15"
+                    android:layout_marginEnd="@dimen/dp15"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_type_submit"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:text="即入即出型"
+                    android:textColor="@color/color_input_submit"
+                    android:textSize="@dimen/sp18" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_type2"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="@dimen/dp15"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_type_submit"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="先入后领型"
+                    android:textColor="@color/color_input_submit"
+                    android:textSize="@dimen/sp18" />
+            </LinearLayout>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_submit"
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="@dimen/dp10"
+                android:background="@drawable/shape_login_btn"
+                android:text="提交"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp18" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

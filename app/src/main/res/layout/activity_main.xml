@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:binding="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="mainModel"
+            type="com.cangjie.scalage.vm.ScaleViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        tools:context=".activity.MainActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/shape_main_bg"
+            android:padding="@dimen/dp10">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp30"
+                android:src="@drawable/ic_main_logo" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dp30"
+                android:drawableStart="@drawable/ic_login_out"
+                android:drawablePadding="@dimen/dp8"
+                android:gravity="center_vertical"
+                android:text="退出登录"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp22"
+                binding:onClickCommand="@{mainModel.loginOut}" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginEnd="20dp"
+            android:background="@color/white">
+
+            <com.aries.ui.view.tab.SlidingTabLayout
+                android:id="@+id/tab_orders"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:background="@color/white"
+                binding:tl_tab_space_equal="true"
+                tl:tl_indicator_color="#51A644"
+                tl:tl_indicator_corner_radius="1dp"
+                tl:tl_indicator_height="1.5dp"
+                tl:tl_indicator_width="80dp"
+                tl:tl_tab_padding="22dp"
+                tl:tl_textSelectColor="#51A644"
+                tl:tl_textSize="@dimen/sp20"
+                tl:tl_textUnSelectColor="#333333" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_date"
+                    android:drawablePadding="@dimen/dp8"
+                    android:gravity="center_vertical"
+                    android:text="@string/str_send_date"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp20" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="@dimen/dp5"
+                    android:background="@drawable/shape_choose_date"
+                    android:drawableEnd="@drawable/ic_date_rect"
+                    android:drawablePadding="@dimen/dp25"
+                    android:gravity="center"
+                    android:minHeight="40dp"
+                    android:paddingStart="@dimen/dp_40"
+                    android:paddingEnd="@dimen/dp_40"
+                    android:text="@={mainModel.chooseDateFiled}"
+                    android:textColor="@color/gray_9"
+                    android:textSize="@dimen/sp20"
+                    binding:onClickCommand="@{mainModel.chooseDate}" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="@dimen/dp8"
+                    android:background="@drawable/shape_login_btn"
+                    android:drawableStart="@drawable/ic_search"
+                    android:drawablePadding="@dimen/dp15"
+                    android:gravity="center_vertical"
+                    android:minHeight="40dp"
+                    android:paddingStart="@dimen/dp25"
+                    android:paddingEnd="@dimen/dp25"
+                    android:text="检索"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp20"
+                    binding:onClickCommand="@{mainModel.searchCommand}" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp_orders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="20dp" />
+
+
+    </LinearLayout>
+</layout>

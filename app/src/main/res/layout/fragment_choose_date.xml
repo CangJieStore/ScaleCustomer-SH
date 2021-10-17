@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/dp5"
+        app:cardElevation="0dp"
+        app:contentPadding="@dimen/dp15">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/rl_bottom"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingStart="15dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="选择配送日期"
+                    android:textColor="@color/black"
+                    android:textSize="22sp" />
+
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_current_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="22sp" />
+            </RelativeLayout>
+
+
+            <com.necer.view.WeekBar
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dp15"
+                android:layout_height="wrap_content" />
+
+            <com.necer.calendar.MonthCalendar
+                android:id="@+id/monthCalendar"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_height="400dp" />
+
+            <RelativeLayout
+                android:id="@+id/rl_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp15"
+                android:layout_marginTop="10dp">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/action_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp5"
+                    android:layout_toLeftOf="@+id/action_done"
+                    android:padding="@dimen/dp10"
+                    android:text="取消"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp22" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/action_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="@dimen/dp10"
+                    android:text="确定"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp22" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</layout>
