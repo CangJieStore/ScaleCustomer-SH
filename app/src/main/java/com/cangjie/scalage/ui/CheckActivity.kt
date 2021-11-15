@@ -24,7 +24,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toFile
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ViewUtils
 import com.cangjie.scalage.BR
 import com.cangjie.scalage.R
@@ -33,12 +32,10 @@ import com.cangjie.scalage.adapter.CheckedAdapter
 import com.cangjie.scalage.adapter.ImageAdapter
 import com.cangjie.scalage.base.workOnIO
 import com.cangjie.scalage.core.BaseMvvmActivity
-import com.cangjie.scalage.core.clearText
 import com.cangjie.scalage.core.event.MsgEvent
 import com.cangjie.scalage.databinding.ActivityCheckBinding
 import com.cangjie.scalage.db.SubmitOrder
 import com.cangjie.scalage.entity.GoodsInfo
-import com.cangjie.scalage.entity.MessageEvent
 import com.cangjie.scalage.entity.OrderInfo
 import com.cangjie.scalage.entity.SubmitInfo
 import com.cangjie.scalage.kit.LuminosityAnalyzer
@@ -47,10 +44,10 @@ import com.cangjie.scalage.kit.lib.ToastUtils
 import com.cangjie.scalage.kit.show
 import com.cangjie.scalage.scale.FormatUtil
 import com.cangjie.scalage.scale.ScaleModule
-import com.cangjie.scalage.scale.SerialPortUtilForScale
 import com.cangjie.scalage.vm.ScaleViewModel
 import com.fondesa.recyclerviewdivider.dividerBuilder
 import com.google.gson.Gson
+import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ktx.immersionBar
 import io.reactivex.Single
 import io.reactivex.SingleObserver
@@ -58,9 +55,6 @@ import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -123,7 +117,6 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
         viewModel.loadDetail(orderID!!)
         date = intent.getStringExtra("date")
         initCamera()
-
         dividerBuilder()
             .color(Color.parseColor("#cccccc"))
             .size(1, TypedValue.COMPLEX_UNIT_DIP)
@@ -140,7 +133,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
         mBinding.adapterChecked = checkedAdapter
         checkAdapter.setOnItemClickListener { adapter, _, position ->
             val choosePosition = adapter.data[position] as GoodsInfo
-            Log.e("shell1", currentShell.toString())
+//            Log.e("shell1", currentShell.toString())
             checkPosition(choosePosition)
             if (choosePosition != currentGoodsInfo) {
                 currentShell = 0.0F
@@ -153,10 +146,17 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
             }
             currentGoodsInfo = null
             currentGoodsInfo = choosePosition
-            Log.e("shell2", currentShell.toString())
+//            Log.e("shell2", currentShell.toString())
             handlerSelected()
         }
-
+        mBinding.editCurrentCount.setOnClickListener {
+            EditPriceDialogFragment("本次数量", "请输入...").setContentCallback(object :
+                EditPriceDialogFragment.ContentCallback {
+                override fun content(content: String?) {
+                    mBinding.editCurrentCount.text = content
+                }
+            }).show(supportFragmentManager)
+        }
         val linearLayoutManager = LinearLayoutManager(this)
         linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
         mBinding.ryImg.layoutManager = linearLayoutManager
@@ -221,7 +221,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
             currentDeliveryType = 2
             mBinding.tvDeliveryCurrent.visibility = View.GONE
             mBinding.tvCurrentWeight.text = "0.00"
-            mBinding.editCurrentCount.clearText()
+            mBinding.editCurrentCount.text = ""
             mBinding.llEditCount.visibility = View.VISIBLE
             mBinding.btnRemove.visibility = View.GONE
             mBinding.btnResetZero.visibility = View.GONE
@@ -235,6 +235,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
         super.initImmersionBar()
         immersionBar {
             fullScreen(true)
+            hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR)
             statusBarDarkFont(false)
             init()
         }
@@ -824,4 +825,11 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
         }
     }
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        immersionBar {
+            hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR)
+            init()
+        }
+    }
 }

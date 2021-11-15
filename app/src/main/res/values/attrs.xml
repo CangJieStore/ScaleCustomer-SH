@@ -68,4 +68,17 @@
         <attr name="scannerAnimationDelay" format="integer" />
         <attr name="frameRatio" format="float" />
     </declare-styleable>
+
+    <style name="BottomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowTitleStyle">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowAnimationStyle">@style/BottomDialog.AnimationStyle</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
+
+    <style name="BottomDialog.AnimationStyle" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/bottom_in_window</item>
+        <item name="android:windowExitAnimation">@anim/bottom_out_window</item>
+    </style>
 </resources>

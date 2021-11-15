@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingTop="@dimen/dp10"
+        android:paddingRight="5dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txt_dialog_title"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp18" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_reply_commit"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="确定"
+            android:textColor="@color/material_red_50"
+            android:textSize="@dimen/sp16"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edit_reply_commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="10dp"
+        android:background="#00000000"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="left|top"
+        android:inputType="numberDecimal"
+        android:maxHeight="200dp"
+        android:minHeight="60dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="5dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="5dp"
+        android:textSize="@dimen/sp22" />
+
+    <com.cangjie.frame.kit.keyboard.NumberKeyboardView
+        android:id="@+id/keyboard_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:keyBackground="@drawable/bg_keyboardview"
+        android:keyPreviewOffset="0dp"
+        android:keyTextColor="#000"
+        android:paddingTop="0dp"
+        android:shadowColor="#fff"
+        android:shadowRadius="0.0" />
+</LinearLayout>

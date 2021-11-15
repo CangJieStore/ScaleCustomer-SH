@@ -21,7 +21,8 @@
     <color name="viewfinder_laser">#FF1FB3E2</color>
     <color name="viewfinder_result_point_color">#C0FFBD21</color>
     <color name="viewfinder_text_color">#FFC0C0C0</color>
-
+    <color name="key_ok_color">#52A645</color>
+    <color name="key_ok_color_pressed">#3F52A645</color>
     <color name="capture_status_bar_color">#00000000</color>
     <color name="capture_navigation_bar_color">#00000000</color>
 </resources>

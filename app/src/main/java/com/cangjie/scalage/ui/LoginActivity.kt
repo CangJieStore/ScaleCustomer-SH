@@ -8,8 +8,11 @@ import com.cangjie.scalage.core.BaseMvvmActivity
 import com.cangjie.scalage.core.event.MsgEvent
 import com.cangjie.scalage.databinding.ActivityLoginBinding
 import com.cangjie.scalage.kit.show
+import com.cangjie.scalage.scale.SerialPortUtilForScale
 import com.cangjie.scalage.vm.ScaleViewModel
+import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ktx.immersionBar
+import kotlin.system.exitProcess
 
 /**
  * @author: guruohan
@@ -19,7 +22,8 @@ class LoginActivity : BaseMvvmActivity<ActivityLoginBinding, ScaleViewModel>() {
 
     override fun initActivity(savedInstanceState: Bundle?) {
         mBinding.tvExit.setOnClickListener {
-            finish()
+            SerialPortUtilForScale.Instance().CloseSerialPort()
+            exitProcess(0)
         }
     }
 
@@ -30,7 +34,16 @@ class LoginActivity : BaseMvvmActivity<ActivityLoginBinding, ScaleViewModel>() {
         super.initImmersionBar()
         immersionBar {
             fullScreen(true)
+            hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR)
             statusBarDarkFont(true, 0.2f)
+            init()
+        }
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        immersionBar {
+            hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR)
             init()
         }
     }
@@ -50,6 +63,12 @@ class LoginActivity : BaseMvvmActivity<ActivityLoginBinding, ScaleViewModel>() {
             startActivity(Intent(this, MainActivity::class.java))
             this@LoginActivity.finish()
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        SerialPortUtilForScale.Instance().CloseSerialPort()
+        exitProcess(0)
     }
 
 }

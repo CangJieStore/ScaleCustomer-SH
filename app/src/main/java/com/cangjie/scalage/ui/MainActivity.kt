@@ -19,14 +19,17 @@ import com.cangjie.scalage.kit.show
 import com.cangjie.scalage.kit.update.model.DownloadInfo
 import com.cangjie.scalage.kit.update.model.TypeConfig
 import com.cangjie.scalage.kit.update.utils.AppUpdateUtils
+import com.cangjie.scalage.scale.SerialPortUtilForScale
 import com.cangjie.scalage.service.InitService
 import com.cangjie.scalage.vm.ScaleViewModel
+import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ktx.immersionBar
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.system.exitProcess
 
 class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
 
@@ -83,7 +86,16 @@ class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
         super.initImmersionBar()
         immersionBar {
             fullScreen(true)
+            hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR)
             statusBarDarkFont(false)
+            init()
+        }
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        immersionBar {
+            hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR)
             init()
         }
     }
@@ -157,7 +169,7 @@ class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
 
     override fun subscribeModel(model: ScaleViewModel) {
         super.subscribeModel(model)
-        model.getUpdate().observe(this, androidx.lifecycle.Observer {
+        model.getUpdate().observe(this, {
             it?.let {
                 update(it)
             }

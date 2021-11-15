@@ -13,6 +13,8 @@ import com.blankj.utilcode.util.KeyboardUtils.showSoftInput
 import com.cangjie.scalage.R
 import com.cangjie.scalage.adapter.SubmitAdapter
 import com.cangjie.scalage.databinding.DialogEditShellBinding
+import com.gyf.immersionbar.BarHide
+import com.gyf.immersionbar.ktx.immersionBar
 
 
 /**
@@ -23,9 +25,6 @@ class EditShellDialogFragment : DialogFragment() {
 
 
     private var editShellBinding: DialogEditShellBinding? = null
-    private val submitAdapter by lazy {
-        SubmitAdapter()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +39,7 @@ class EditShellDialogFragment : DialogFragment() {
         dialogWindow!!.setGravity(Gravity.CENTER)
         val lp = dialogWindow.attributes
         val displayMetrics = requireContext().resources.displayMetrics
-        lp.height = (displayMetrics.heightPixels * 0.3f).toInt()
+        lp.height = (displayMetrics.heightPixels * 0.32f).toInt()
         lp.width = (displayMetrics.widthPixels * 0.36f).toInt()
         dialogWindow.attributes = lp
     }

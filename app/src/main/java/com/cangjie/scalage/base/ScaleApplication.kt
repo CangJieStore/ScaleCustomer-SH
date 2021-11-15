@@ -1,6 +1,7 @@
 package com.cangjie.scalage.base
 
 import android.app.Application
+import com.blankj.utilcode.util.ViewUtils
 import com.cangjie.scalage.R
 import com.cangjie.scalage.base.http.HttpManager
 import com.cangjie.scalage.core.db.CangJie
@@ -12,6 +13,8 @@ import com.cangjie.scalage.kit.update.model.TypeConfig
 import com.cangjie.scalage.kit.update.model.UpdateConfig
 import com.cangjie.scalage.kit.update.utils.AppUpdateUtils
 import com.cangjie.scalage.kit.update.utils.SSLUtils
+import com.cangjie.scalage.scale.ScaleModule
+import com.cangjie.scalage.scale.SerialPortUtilForScale
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 import javax.net.ssl.HostnameVerifier
@@ -31,6 +34,15 @@ class ScaleApplication : Application() {
             encryptKey = "encryptKey"
         }
         ToastUtils.init(this, BlackToastStyle())
+        SerialPortUtilForScale.Instance().OpenSerialPort() //打开称重串口
+        try {
+            ScaleModule.Instance(this) //初始化称重模块
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            ViewUtils.runOnUiThread {
+                ToastUtils.show("初始化称重主板错误！")
+            }
+        }
         HttpManager.init(this)
         update()
     }
