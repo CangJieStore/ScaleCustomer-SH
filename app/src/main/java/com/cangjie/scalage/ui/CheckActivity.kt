@@ -31,6 +31,7 @@ import com.cangjie.scalage.R
 import com.cangjie.scalage.adapter.CheckAdapter
 import com.cangjie.scalage.adapter.CheckedAdapter
 import com.cangjie.scalage.adapter.ImageAdapter
+import com.cangjie.scalage.base.workOnIO
 import com.cangjie.scalage.core.BaseMvvmActivity
 import com.cangjie.scalage.core.clearText
 import com.cangjie.scalage.core.event.MsgEvent
@@ -139,6 +140,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
         mBinding.adapterChecked = checkedAdapter
         checkAdapter.setOnItemClickListener { adapter, _, position ->
             val choosePosition = adapter.data[position] as GoodsInfo
+            Log.e("shell1", currentShell.toString())
             checkPosition(choosePosition)
             if (choosePosition != currentGoodsInfo) {
                 currentShell = 0.0F
@@ -151,6 +153,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
             }
             currentGoodsInfo = null
             currentGoodsInfo = choosePosition
+            Log.e("shell2", currentShell.toString())
             handlerSelected()
         }
 
@@ -170,17 +173,18 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
     }
 
     private fun initWeight() {
-        Thread {
-            SerialPortUtilForScale.Instance().OpenSerialPort() //打开称重串口
-            try {
-                ScaleModule.Instance(this@CheckActivity) //初始化称重模块
-            } catch (e: java.lang.Exception) {
-                e.printStackTrace()
-                runOnUiThread {
-                    show(this@CheckActivity, 2000, "初始化称重主板错误！")
+        lifecycleScope.launch {
+            workOnIO {
+                try {
+                    ScaleModule.Instance(this@CheckActivity) //初始化称重模块
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
+                    runOnUiThread {
+                        show(this@CheckActivity, 2000, "初始化称重主板错误！")
+                    }
                 }
             }
-        }.start()
+        }
     }
 
     private fun calType(type: String): Int {
@@ -430,8 +434,9 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
 
     override fun onDestroy() {
         super.onDestroy()
-        unregisterReceiver(readDataReceiver)
-        SerialPortUtilForScale.Instance().CloseSerialPort()
+        readDataReceiver?.let {
+            unregisterReceiver(it)
+        }
         cameraExecutor.shutdown()
         displayManager.unregisterDisplayListener(displayListener)
         sliderAppearingJob?.cancel()
@@ -444,7 +449,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
         val cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
-        cameraProviderFuture.addListener(Runnable {
+        cameraProviderFuture.addListener({
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
             preview = Preview.Builder()
                 .setTargetAspectRatio(screenAspectRatio)
@@ -703,7 +708,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
                 }
             }
         }
-        return FormatUtil.roundByScale(count,2).toString()
+        return FormatUtil.roundByScale(count, 2).toString()
     }
 
 

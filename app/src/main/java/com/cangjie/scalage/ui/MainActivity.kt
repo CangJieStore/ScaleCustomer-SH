@@ -25,6 +25,7 @@ import com.gyf.immersionbar.ktx.immersionBar
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import java.net.URL
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
@@ -49,19 +50,27 @@ class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
         mBinding.vpOrders.adapter = mAdapter
         mBinding.tabOrders.setViewPager(mBinding.vpOrders)
         mBinding.tabOrders.currentTab = 0
+        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val date = Date(System.currentTimeMillis())
+        viewModel.chooseDateFiled.set(simpleDateFormat.format(date))
         netTime()
     }
 
     private fun netTime() {
         lifecycleScope.launch {
             workOnIO {
-                val infoUrl = URL("http://www.baidu.com")
-                val connection = infoUrl.openConnection()
-                connection.connect()
-                val ld = connection.date
-                val now = DateUtil.dateToString(Date(ld), DateUtil.DATE_FORMAT)
-                viewModel.chooseDateFiled.set(now)
-                EventBus.getDefault().post(MessageEvent(0, now))
+                try {
+                    val infoUrl = URL("http://www.baidu.com")
+                    val connection = infoUrl.openConnection()
+                    connection.connect()
+                    val ld = connection.date
+                    val now = DateUtil.dateToString(Date(ld), DateUtil.DATE_FORMAT)
+                    viewModel.chooseDateFiled.set(now)
+                    EventBus.getDefault().post(MessageEvent(0, now))
+                } catch (e: Exception) {
+                    EventBus.getDefault()
+                        .post(MessageEvent(0, viewModel.chooseDateFiled.get().toString()))
+                }
             }
         }
     }
