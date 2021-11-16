@@ -17,6 +17,6 @@ data class GoodsInfo(
     val receive_date: String,
     val path: String,
     var batch: String,
-    val repair_receive: String,
+    var repair_receive: String,
     var isRepair: Boolean
 ) : Serializable
