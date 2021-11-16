@@ -15,6 +15,7 @@ import com.cangjie.scalage.kit.update.utils.AppUpdateUtils
 import com.cangjie.scalage.kit.update.utils.SSLUtils
 import com.cangjie.scalage.scale.ScaleModule
 import com.cangjie.scalage.scale.SerialPortUtilForScale
+import com.umeng.commonsdk.UMConfigure
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 import javax.net.ssl.HostnameVerifier
@@ -28,6 +29,16 @@ class ScaleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         setApplication(this)
+        UMConfigure.setLogEnabled(true);
+        //友盟预初始化
+        UMConfigure.preInit(this, "61931c62e0f9bb492b5d5afb", "ScalaCustomer")
+        UMConfigure.init(
+            this,
+            "61931c62e0f9bb492b5d5afb",
+            "ScalaCustomer",
+            UMConfigure.DEVICE_TYPE_PHONE,
+            ""
+        );
         CangJie.init(this)
         CangJie.config {
             multiProcess = true

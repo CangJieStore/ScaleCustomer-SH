@@ -12,8 +12,8 @@ android {
         applicationId "com.cangjie.scalage"
         minSdk 21
         targetSdk 31
-        versionCode 2
-        versionName "1.0"
+        versionCode 4
+        versionName "1.2"
     }
     buildFeatures {
         dataBinding = true
@@ -96,4 +96,7 @@ dependencies {
     implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
     api 'com.liulishuo.filedownloader:library:1.7.7'
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+    implementation 'com.umeng.umsdk:common:9.4.4'// (必选)
+    implementation 'com.umeng.umsdk:asms:1.4.1'// asms包依赖必选
+    implementation 'com.umeng.umsdk:apm:1.5.2'// U-APM产品包依赖(必选)
 }
