@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RelativeLayout
@@ -23,6 +24,7 @@ object LoadingDialog {
     private var dialog_view_bg: RelativeLayout? = null
     private var tv_show: TextView? = null
     private var progress: LoadingIndicator? = null
+
     private fun initDialog(mContext: Context) {
         val inflater = LayoutInflater.from(mContext)
         val mProgressDialogView =
@@ -150,6 +152,7 @@ object LoadingDialog {
                 mDialog!!.show()
             }
         } catch (e: Exception) {
+            Log.e("exception",e.message.toString())
         }
     }
 

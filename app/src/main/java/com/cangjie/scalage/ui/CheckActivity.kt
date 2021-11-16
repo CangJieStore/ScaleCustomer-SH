@@ -1,6 +1,5 @@
 package com.cangjie.scalage.ui
 
-import android.app.AlertDialog
 import android.content.*
 import android.content.res.Configuration
 import android.graphics.*
@@ -673,7 +672,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
                 )
                 imgData.add(path)
                 runOnUiThread {
-                    mBinding.editCurrentCount.setText("")
+                    mBinding.editCurrentCount.text = ""
                     mBinding.tvDeliveryCount.text =
                         "已验数量：" + getDeliveryCount() + currentGoodsInfo!!.deliver_unit
                     imgAdapter.setList(imgData)

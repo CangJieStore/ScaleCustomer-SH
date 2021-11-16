@@ -23,12 +23,12 @@
         android:paddingRight="12dp"
         android:paddingBottom="12dp">
 
-        <cn.cangjie.core.loading.LoadingIndicator
+        <com.cangjie.scalage.core.loading.LoadingIndicator
             android:id="@+id/progress_wheel"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_centerHorizontal="true"
-            app:indicatorName="cn.cangjie.core.loading.ArcRotateIndicator" />
+            app:indicatorName="com.cangjie.scalage.core.loading.ArcRotateIndicator" />
 
 
         <androidx.appcompat.widget.AppCompatTextView

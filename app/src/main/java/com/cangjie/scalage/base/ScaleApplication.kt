@@ -5,6 +5,8 @@ import com.blankj.utilcode.util.ViewUtils
 import com.cangjie.scalage.R
 import com.cangjie.scalage.base.http.HttpManager
 import com.cangjie.scalage.core.db.CangJie
+import com.cangjie.scalage.core.loading.LoadingConfig
+import com.cangjie.scalage.core.loading.LoadingDialog
 import com.cangjie.scalage.entity.UpdateModel
 import com.cangjie.scalage.kit.OkHttp3Connection
 import com.cangjie.scalage.kit.lib.ToastUtils

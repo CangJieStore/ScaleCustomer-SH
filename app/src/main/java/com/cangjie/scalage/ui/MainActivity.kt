@@ -49,7 +49,7 @@ class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
     }
 
     override fun initActivity(savedInstanceState: Bundle?) {
-        viewModel.loadUpdate()
+//        viewModel.loadUpdate()
         mBinding.vpOrders.adapter = mAdapter
         mBinding.tabOrders.setViewPager(mBinding.vpOrders)
         mBinding.tabOrders.currentTab = 0
@@ -133,6 +133,7 @@ class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
 
     override fun onResume() {
         super.onResume()
+        viewModel.loadUpdate()
         EventBus.getDefault().post(MessageEvent(0, viewModel.chooseDateFiled.get().toString()))
     }
 
