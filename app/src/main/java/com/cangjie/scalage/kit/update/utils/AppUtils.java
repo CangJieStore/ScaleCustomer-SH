@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
+import android.text.TextUtils;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
@@ -65,6 +66,16 @@ public class AppUtils {
         // apk 保存名称
         String apkName = AppUtils.getAppName(AppUpdateUtils.getInstance().getContext());
         return getAppRootPath() + "/" + "st" + "_" + versionName + ".apk";
+    }
+
+    public static boolean checkRooted() {
+        boolean result = false;
+        try {
+            result = new File("/system/bin/su").exists() || new File("/system/xbin/su").exists();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     /**

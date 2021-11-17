@@ -39,7 +39,7 @@ public class ThemeActivity extends RootActivity {
     private void setDataAndListener() {
         tvMsg.setText(downloadInfo.getUpdateLog());
         tvMsg.setMovementMethod(ScrollingMovementMethod.getInstance());
-        tvVersion.setText("v"+downloadInfo.getProdVersionName());
+        tvVersion.setText("v" + downloadInfo.getProdVersionName());
 
         if (downloadInfo.isForceUpdateFlag()) {
             ivClose.setVisibility(View.GONE);
@@ -90,7 +90,7 @@ public class ThemeActivity extends RootActivity {
         return new AppDownloadListener() {
             @Override
             public void downloading(int progress) {
-                tvBtn2.setText(ResUtils.getString(R.string.downloading)+progress+"%");
+                tvBtn2.setText(ResUtils.getString(R.string.downloading) + progress + "%");
             }
 
             @Override
@@ -101,7 +101,7 @@ public class ThemeActivity extends RootActivity {
 
             @Override
             public void downloadComplete(String path) {
-                tvBtn2.setText(ResUtils.getString(R.string.btn_update_now));
+                tvBtn2.setText(ResUtils.getString(R.string.installing));
             }
 
             @Override

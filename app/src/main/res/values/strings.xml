@@ -41,4 +41,6 @@
     <string name="installing">安装中...</string>
     <string name="install">安装</string>
     <string name="apk_file_download_fail">安装文件下载失败</string>
+    <string name="accessibility_service_description">应用自动安装服务</string>
+
 </resources>

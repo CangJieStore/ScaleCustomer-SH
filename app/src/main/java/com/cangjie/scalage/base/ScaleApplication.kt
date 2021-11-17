@@ -40,7 +40,7 @@ class ScaleApplication : Application() {
             "ScalaCustomer",
             UMConfigure.DEVICE_TYPE_PHONE,
             ""
-        );
+        )
         CangJie.init(this)
         CangJie.config {
             multiProcess = true
