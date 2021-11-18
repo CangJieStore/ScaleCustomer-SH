@@ -22,12 +22,17 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.core.SingleObserver
 import io.reactivex.rxjava3.disposables.Disposable
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import rxhttp.RxHttp
 import rxhttp.awaitResult
+import rxhttp.toFlow
 import rxhttp.toStr
 import java.io.File
 import java.util.*
@@ -101,8 +106,11 @@ class InitService : Service(), CoroutineScope by MainScope() {
                 .add("id", order.goodsId)
                 .add("batch", order.batchId)
                 .addFile("file", File(order.batchPath))
-                .toStr()
-                .awaitResult()
+                .toFlow<String> {
+
+                }.catch {
+
+                }.collect { }
             val file = File(order.batchPath)
             contentResolver.delete(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,

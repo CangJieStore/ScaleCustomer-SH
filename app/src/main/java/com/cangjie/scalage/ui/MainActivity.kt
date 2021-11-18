@@ -49,7 +49,6 @@ class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
     }
 
     override fun initActivity(savedInstanceState: Bundle?) {
-//        viewModel.loadUpdate()
         mBinding.vpOrders.adapter = mAdapter
         mBinding.tabOrders.setViewPager(mBinding.vpOrders)
         mBinding.tabOrders.currentTab = 0

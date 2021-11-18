@@ -1,12 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: androidx.camera:camera-core:1.1.0-alpha03@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/d1829f776f1c449bc85adb7affce3869/transformed/jetified-camera-core-1.1.0-alpha03/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b41c07ece701f1149f9afb324bbb04b4/transformed/jetified-camera-core-1.1.0-alpha03/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/d1829f776f1c449bc85adb7affce3869/transformed/jetified-camera-core-1.1.0-alpha03/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d1829f776f1c449bc85adb7affce3869/transformed/jetified-camera-core-1.1.0-alpha03/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d1829f776f1c449bc85adb7affce3869/transformed/jetified-camera-core-1.1.0-alpha03/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b41c07ece701f1149f9afb324bbb04b4/transformed/jetified-camera-core-1.1.0-alpha03/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b41c07ece701f1149f9afb324bbb04b4/transformed/jetified-camera-core-1.1.0-alpha03/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b41c07ece701f1149f9afb324bbb04b4/transformed/jetified-camera-core-1.1.0-alpha03/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
