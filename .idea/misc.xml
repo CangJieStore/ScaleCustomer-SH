@@ -17,6 +17,7 @@
         <entry key="app/src/main/res/layout/dialog_edit_shell.xml" value="0.17617753623188406" />
         <entry key="app/src/main/res/layout/dialog_preview_img.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/dialog_submit.xml" value="0.13728470111448834" />
+        <entry key="app/src/main/res/layout/dialog_upload_img.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/fragment_cheked.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/fragment_choose_date.xml" value="0.17617753623188406" />
         <entry key="app/src/main/res/layout/fragment_uncheck.xml" value="0.13728470111448834" />
@@ -27,6 +28,7 @@
         <entry key="app/src/main/res/layout/layout_notification.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/layout_order_item.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/layout_submit_item.xml" value="0.13728470111448834" />
+        <entry key="app/src/main/res/layout/layout_upload_item.xml" value="0.13728470111448834" />
       </map>
     </option>
   </component>

@@ -58,28 +58,28 @@ class InitService : Service(), CoroutineScope by MainScope() {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this)
         }
-        timer = fixedRateTimer("", false, 0, 60000) {
-            val single: Single<MutableList<SubmitOrder>> = Single.create { emitter ->
-                booksDao = AppDatabase.get(ScaleApplication.instance!!).orderDao()
-                val orders = booksDao!!.getUpload()
-                emitter.onSuccess(orders)
-            }
-            single.subscribe(object : SingleObserver<MutableList<SubmitOrder>> {
-                override fun onSuccess(o: MutableList<SubmitOrder>) {
-                    Log.e("orders", Gson().toJson(o))
-                    for (item in o) {
-                        upload(item)
-                    }
-                }
-
-                override fun onSubscribe(d: Disposable) {
-
-                }
-
-                override fun onError(e: Throwable) {
-                }
-            })
-        }
+//        timer = fixedRateTimer("", false, 0, 60000) {
+//            val single: Single<MutableList<SubmitOrder>> = Single.create { emitter ->
+//                booksDao = AppDatabase.get(ScaleApplication.instance!!).orderDao()
+//                val orders = booksDao!!.getUpload()
+//                emitter.onSuccess(orders)
+//            }
+//            single.subscribe(object : SingleObserver<MutableList<SubmitOrder>> {
+//                override fun onSuccess(o: MutableList<SubmitOrder>) {
+//                    Log.e("orders", Gson().toJson(o))
+//                    for (item in o) {
+//                        upload(item)
+//                    }
+//                }
+//
+//                override fun onSubscribe(d: Disposable) {
+//
+//                }
+//
+//                override fun onError(e: Throwable) {
+//                }
+//            })
+//        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -130,8 +130,8 @@ class InitService : Service(), CoroutineScope by MainScope() {
         if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this)
         }
-        corLife.close()
-        timer.cancel()
+//        corLife.close()
+//        timer.cancel()
         if (CangJie.getString("token", "").isNotEmpty()) {
             SerialPortUtilForScale.Instance().CloseSerialPort()
             exitProcess(0)

@@ -12,13 +12,14 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0671178e96fe4019715c9d54a48661ef/transformed/jetified-rxbinding-2.2.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0671178e96fe4019715c9d54a48661ef/transformed/jetified-rxbinding-2.2.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3ed472ff6714f396c7fb7f3aa7d946bd/transformed/jetified-rxbinding-2.2.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/e625dfc4db173aad306fd6a867ae6894/transformed/jetified-rxbinding-2.2.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e625dfc4db173aad306fd6a867ae6894/transformed/jetified-rxbinding-2.2.0/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e625dfc4db173aad306fd6a867ae6894/transformed/jetified-rxbinding-2.2.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/10d8ba8824b075840cf957cba1b72ac7/transformed/jetified-rxbinding-2.2.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c9cb47d2032a9e3ae1d2b7a1d99e661c/transformed/jetified-rxbinding-2.2.0/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c9cb47d2032a9e3ae1d2b7a1d99e661c/transformed/jetified-rxbinding-2.2.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c9cb47d2032a9e3ae1d2b7a1d99e661c/transformed/jetified-rxbinding-2.2.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/17b290ce2f566089c4ee30a69da7cc99/transformed/jetified-rxbinding-2.2.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/17b290ce2f566089c4ee30a69da7cc99/transformed/jetified-rxbinding-2.2.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/17b290ce2f566089c4ee30a69da7cc99/transformed/jetified-rxbinding-2.2.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton.rxbinding2/rxbinding/2.2.0/2451ae574a8c45f839f95290ab58975ee469ca03/rxbinding-2.2.0-javadoc.jar!/" />

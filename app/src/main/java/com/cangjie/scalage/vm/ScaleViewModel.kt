@@ -1,5 +1,7 @@
 package com.cangjie.scalage.vm
 
+import android.provider.MediaStore
+import android.util.Log
 import androidx.collection.arrayMapOf
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
@@ -7,6 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.cangjie.scalage.base.ScaleApplication
 import com.cangjie.scalage.base.http.Url
+import com.cangjie.scalage.base.http.errorMsg
 import com.cangjie.scalage.core.binding.BindingAction
 import com.cangjie.scalage.core.binding.BindingCommand
 import com.cangjie.scalage.core.db.CangJie
@@ -18,7 +21,17 @@ import com.cangjie.scalage.db.SubmitOrder
 import com.cangjie.scalage.db.SubmitRepository
 import com.cangjie.scalage.entity.Update
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
+import okhttp3.Dispatcher
+import rxhttp.RxHttp
+import rxhttp.awaitResult
+import rxhttp.toFlow
+import rxhttp.toStr
+import java.io.File
 
 /**
  * @author: guruohan
@@ -30,6 +43,7 @@ class ScaleViewModel : BaseScaleViewModel() {
     var chooseDateFiled = ObservableField<String>()
     var currentOrder = MutableLiveData<OrderInfo>()
     var updateData = MutableLiveData<Update>()
+    var allUploadOrders = MutableLiveData<MutableList<SubmitOrder>>()
     private val books: LiveData<MutableList<SubmitOrder>>
 
     var showStatusFiled = ObservableField(0)
@@ -207,6 +221,34 @@ class ScaleViewModel : BaseScaleViewModel() {
 
     fun add(book: SubmitOrder) = viewModelScope.launch(Dispatchers.IO) {
         bookRepository.insert(book)
+    }
+
+    fun getUpload() {
+        viewModelScope.launch(Dispatchers.IO) {
+            flow {
+                val booksDao = AppDatabase.get(ScaleApplication.instance!!).orderDao()
+                val orders = booksDao.getUpload()
+                emit(orders)
+            }.catch {
+                Log.e("info", it.errorMsg)
+            }.collect {
+                allUploadOrders.postValue(it)
+            }
+        }
+    }
+
+    fun uploadImg(order: SubmitOrder) {
+        viewModelScope.launch {
+            RxHttp.postForm(Url.upload)
+                .add("access_token", CangJie.getString("token"))
+                .add("id", order.goodsId)
+                .add("batch", order.batchId)
+                .addFile("file", File(order.batchPath))
+                .upload {
+
+                }
+                .toStr().awaitResult()
+        }
     }
 
     fun update(book: SubmitOrder) = viewModelScope.launch(Dispatchers.IO) {

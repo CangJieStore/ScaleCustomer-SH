@@ -6,12 +6,14 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.cangjie.scalage.BR
 import com.cangjie.scalage.R
+import com.cangjie.scalage.adapter.UploadImageAdapter
 import com.cangjie.scalage.base.BaseFragmentPagerAdapter
 import com.cangjie.scalage.base.DateUtil
 import com.cangjie.scalage.base.workOnIO
 import com.cangjie.scalage.core.BaseMvvmActivity
 import com.cangjie.scalage.core.event.MsgEvent
 import com.cangjie.scalage.databinding.ActivityMainBinding
+import com.cangjie.scalage.db.SubmitOrder
 import com.cangjie.scalage.entity.ListModel
 import com.cangjie.scalage.entity.MessageEvent
 import com.cangjie.scalage.entity.Update
@@ -56,6 +58,7 @@ class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
         val date = Date(System.currentTimeMillis())
         viewModel.chooseDateFiled.set(simpleDateFormat.format(date))
         netTime()
+        viewModel.getUpload()
     }
 
     private fun netTime() {
@@ -172,6 +175,25 @@ class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
         model.getUpdate().observe(this, {
             it?.let {
                 update(it)
+            }
+        })
+        model.allUploadOrders.observe(this, {
+            if (it.size > 0) {
+                val data = arrayListOf<SubmitOrder>()
+                it.forEach { item ->
+                    run {
+                        data.add(item)
+                    }
+                }
+                val bundle = Bundle()
+                bundle.putParcelableArrayList("orders", data)
+                UploadDialogFragment.newInstance(bundle)
+                    ?.setStandByCallback(object : UploadDialogFragment.StandByCallback {
+                        override fun upload(adapter: UploadImageAdapter) {
+                            adapter.data.forEach {
+                            }
+                        }
+                    })?.show(supportFragmentManager, "")
             }
         })
     }

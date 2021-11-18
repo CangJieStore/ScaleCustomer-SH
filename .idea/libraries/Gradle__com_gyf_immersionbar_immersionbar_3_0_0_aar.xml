@@ -10,12 +10,12 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/628c04ab7dc7f55211dda05d04242e48/transformed/jetified-immersionbar-3.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/628c04ab7dc7f55211dda05d04242e48/transformed/jetified-immersionbar-3.0.0/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/628c04ab7dc7f55211dda05d04242e48/transformed/jetified-immersionbar-3.0.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c341ce68610e96dbe12d680c156c8084/transformed/jetified-immersionbar-3.0.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c341ce68610e96dbe12d680c156c8084/transformed/jetified-immersionbar-3.0.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c341ce68610e96dbe12d680c156c8084/transformed/jetified-immersionbar-3.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/88058c5b3ab3f68ce0c3d4f06be712da/transformed/jetified-immersionbar-3.0.0/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/88058c5b3ab3f68ce0c3d4f06be712da/transformed/jetified-immersionbar-3.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/88058c5b3ab3f68ce0c3d4f06be712da/transformed/jetified-immersionbar-3.0.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b6c48835fde18af484ab813ae1f611b9/transformed/jetified-immersionbar-3.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b6c48835fde18af484ab813ae1f611b9/transformed/jetified-immersionbar-3.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b6c48835fde18af484ab813ae1f611b9/transformed/jetified-immersionbar-3.0.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.gyf.immersionbar/immersionbar/3.0.0/26487680c1579c0008352d780f245173753fd245/immersionbar-3.0.0-javadoc.jar!/" />

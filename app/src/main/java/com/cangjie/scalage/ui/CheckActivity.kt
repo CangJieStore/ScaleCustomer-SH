@@ -785,9 +785,23 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
                         } else {
                             currentGoodsInfo = null
                             resetCheck()
+                            viewModel.getUpload()
                         }
                     }
                 }
+            }
+        })
+        model.allUploadOrders.observe(this, {
+            if (it.size > 0) {
+                val data = arrayListOf<SubmitOrder>()
+                it.forEach { item ->
+                    run {
+                        data.add(item)
+                    }
+                }
+                val bundle = Bundle()
+                bundle.putParcelableArrayList("orders", data)
+                UploadDialogFragment.newInstance(bundle)?.show(supportFragmentManager, "")
             }
         })
     }
