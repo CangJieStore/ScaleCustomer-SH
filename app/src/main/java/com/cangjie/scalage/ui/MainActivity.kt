@@ -3,6 +3,8 @@ package com.cangjie.scalage.ui
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.cangjie.scalage.BR
 import com.cangjie.scalage.R
@@ -28,6 +30,7 @@ import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ktx.immersionBar
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
+import java.io.File
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
@@ -190,7 +193,26 @@ class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
                 UploadDialogFragment.newInstance(bundle)
                     ?.setStandByCallback(object : UploadDialogFragment.StandByCallback {
                         override fun upload(adapter: UploadImageAdapter) {
-                            adapter.data.forEach {
+                            for (i in 0 until adapter.data.size) {
+                                val item = adapter.data[i]
+                                viewModel.uploadImg(item, object : ProgressCallback {
+                                    override fun progress(pb: Int, status: Int) {
+                                        runOnUiThread {
+                                            adapter.updateProgress(pb, i)
+                                            if (status == 0) {
+                                                val file = File(item.batchPath)
+                                                contentResolver.delete(
+                                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                                    MediaStore.Images.Media.DATA + "=?",
+                                                    arrayOf(item.batchPath)
+                                                )
+                                                file.delete()
+                                                item.isUpload = 2
+                                                viewModel.update(item)
+                                            }
+                                        }
+                                    }
+                                })
                             }
                         }
                     })?.show(supportFragmentManager, "")

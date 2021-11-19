@@ -3,8 +3,17 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/white"
-        android:layout_height="match_parent">
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp15"
+            android:text="上传验收图片"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp20" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ry_img"

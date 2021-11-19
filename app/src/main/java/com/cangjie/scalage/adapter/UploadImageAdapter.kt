@@ -1,20 +1,11 @@
 package com.cangjie.scalage.adapter
 
-import android.provider.MediaStore
 import android.view.View
 import com.cangjie.scalage.R
-import com.cangjie.scalage.base.http.Url
-import com.cangjie.scalage.core.db.CangJie
-import com.cangjie.scalage.databinding.LayoutImgItemBinding
 import com.cangjie.scalage.databinding.LayoutUploadItemBinding
 import com.cangjie.scalage.db.SubmitOrder
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import rxhttp.RxHttp
-import rxhttp.toFlow
-import java.io.File
 
 /**
  * @author nvwa@cangjie
@@ -33,6 +24,7 @@ class UploadImageAdapter :
             it.pos = (holder.adapterPosition + 1).toString()
             if (item.isUpload == 1) {
                 it.tvStatus.visibility = View.GONE
+                it.pbUpload.progress = progress
             } else {
                 it.tvStatus.visibility = View.VISIBLE
                 it.pbUpload.progress = 100

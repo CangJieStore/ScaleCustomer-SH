@@ -29,6 +29,7 @@ import com.cangjie.scalage.R
 import com.cangjie.scalage.adapter.CheckAdapter
 import com.cangjie.scalage.adapter.CheckedAdapter
 import com.cangjie.scalage.adapter.ImageAdapter
+import com.cangjie.scalage.adapter.UploadImageAdapter
 import com.cangjie.scalage.base.workOnIO
 import com.cangjie.scalage.core.BaseMvvmActivity
 import com.cangjie.scalage.core.event.MsgEvent
@@ -801,7 +802,33 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
                 }
                 val bundle = Bundle()
                 bundle.putParcelableArrayList("orders", data)
-                UploadDialogFragment.newInstance(bundle)?.show(supportFragmentManager, "")
+                UploadDialogFragment.newInstance(bundle)
+                    ?.setStandByCallback(object : UploadDialogFragment.StandByCallback {
+                        override fun upload(adapter: UploadImageAdapter) {
+                            for (i in 0 until adapter.data.size) {
+                                val item = adapter.data[i]
+                                viewModel.uploadImg(item, object : ProgressCallback {
+                                    override fun progress(pb: Int, status: Int) {
+                                        runOnUiThread {
+                                            adapter.updateProgress(pb, i)
+                                            if (status == 0) {
+                                                val file = File(item.batchPath)
+                                                contentResolver.delete(
+                                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                                    MediaStore.Images.Media.DATA + "=?",
+                                                    arrayOf(item.batchPath)
+                                                )
+                                                file.delete()
+                                                item.isUpload = 2
+                                                viewModel.update(item)
+                                            }
+                                        }
+                                    }
+                                })
+                            }
+                            Log.e("done", "uploadDone")
+                        }
+                    })?.show(supportFragmentManager, "")
             }
         })
     }

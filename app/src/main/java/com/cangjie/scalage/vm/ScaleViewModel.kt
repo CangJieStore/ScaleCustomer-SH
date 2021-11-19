@@ -20,6 +20,9 @@ import com.cangjie.scalage.entity.OrderInfo
 import com.cangjie.scalage.db.SubmitOrder
 import com.cangjie.scalage.db.SubmitRepository
 import com.cangjie.scalage.entity.Update
+import com.cangjie.scalage.entity.UploadResult
+import com.cangjie.scalage.ui.ProgressCallback
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -27,10 +30,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import okhttp3.Dispatcher
-import rxhttp.RxHttp
-import rxhttp.awaitResult
-import rxhttp.toFlow
-import rxhttp.toStr
+import rxhttp.*
 import java.io.File
 
 /**
@@ -237,17 +237,20 @@ class ScaleViewModel : BaseScaleViewModel() {
         }
     }
 
-    fun uploadImg(order: SubmitOrder) {
-        viewModelScope.launch {
+    fun uploadImg(order: SubmitOrder, progressCb: ProgressCallback?) {
+        viewModelScope.launch(Dispatchers.IO) {
             RxHttp.postForm(Url.upload)
                 .add("access_token", CangJie.getString("token"))
                 .add("id", order.goodsId)
-                .add("batch", order.batchId)
+                .add("batch", order.batchId.toInt() - 1)
                 .addFile("file", File(order.batchPath))
-                .upload {
-
+                .upload(AndroidSchedulers.mainThread()) {
+                    progressCb?.progress(it.progress, -1)
+                }.toClass<UploadResult>().awaitResult {
+                    progressCb?.progress(100, it.code)
+                }.onFailure {
+                    toast(it.errorMsg)
                 }
-                .toStr().awaitResult()
         }
     }
 

@@ -91,6 +91,7 @@ class UploadDialogFragment : DialogFragment() {
         return this
     }
 
+
     companion object {
         fun newInstance(args: Bundle?): UploadDialogFragment? {
             val fragment = UploadDialogFragment()

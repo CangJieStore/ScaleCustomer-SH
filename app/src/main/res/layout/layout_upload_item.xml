@@ -45,7 +45,7 @@
                     app:zpb_max="100"
                     app:zpb_padding="0dp"
                     app:zpb_pb_color="@color/theme_color"
-                    app:zpb_progress="80" />
+                    app:zpb_progress="0" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.AppCompatTextView
