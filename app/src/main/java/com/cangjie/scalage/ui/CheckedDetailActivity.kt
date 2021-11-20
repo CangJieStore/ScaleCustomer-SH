@@ -13,6 +13,7 @@ import com.cangjie.scalage.databinding.ActivityCheckedDetailBinding
 import com.cangjie.scalage.entity.OrderInfo
 import com.cangjie.scalage.vm.ScaleViewModel
 import com.fondesa.recyclerviewdivider.dividerBuilder
+import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ktx.immersionBar
 
 /**
@@ -58,6 +59,7 @@ class CheckedDetailActivity : BaseMvvmActivity<ActivityCheckedDetailBinding, Sca
         super.initImmersionBar()
         immersionBar {
             fullScreen(true)
+            hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR)
             statusBarDarkFont(false)
             init()
         }

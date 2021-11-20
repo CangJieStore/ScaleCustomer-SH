@@ -7,13 +7,34 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp15"
-            android:text="上传验收图片"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sp20" />
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/dp15"
+                android:text="上传验收图片"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp20" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:gravity="end"
+                android:padding="@dimen/dp15"
+                android:text="关闭"
+                android:textColor="@color/theme_color"
+                android:textSize="@dimen/sp18"
+                android:visibility="gone" />
+        </RelativeLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ry_img"
@@ -21,6 +42,7 @@
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="5" />
+
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

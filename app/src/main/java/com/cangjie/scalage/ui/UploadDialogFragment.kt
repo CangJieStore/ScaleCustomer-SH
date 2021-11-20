@@ -12,7 +12,8 @@ import androidx.fragment.app.DialogFragment
 import com.cangjie.scalage.R
 import com.cangjie.scalage.adapter.UploadImageAdapter
 import com.cangjie.scalage.databinding.DialogUploadImgBinding
-import com.cangjie.scalage.db.SubmitOrder
+import com.cangjie.scalage.entity.UploadTask
+import com.cangjie.scalage.service.MultiTaskUploader
 import com.fondesa.recyclerviewdivider.dividerBuilder
 import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ktx.immersionBar
@@ -26,6 +27,7 @@ class UploadDialogFragment : DialogFragment() {
 
 
     private var dialogUploadImgBinding: DialogUploadImgBinding? = null
+
     private var standByCallback: StandByCallback? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +38,7 @@ class UploadDialogFragment : DialogFragment() {
     override fun onStart() {
         super.onStart()
         dialog!!.setCanceledOnTouchOutside(false)
+        dialog!!.setCancelable(false)
         val dialogWindow = dialog!!.window
         dialogWindow!!.setGravity(Gravity.CENTER)
         val lp = dialogWindow.attributes
@@ -61,7 +64,7 @@ class UploadDialogFragment : DialogFragment() {
             init()
         }
         val uploadOrders =
-            arguments?.getParcelableArrayList<SubmitOrder>("orders") as ArrayList<SubmitOrder>
+            arguments?.getSerializable("orders") as ArrayList<UploadTask>
         val uploadImageAdapter = UploadImageAdapter()
 
         dialogUploadImgBinding?.let {
@@ -73,17 +76,28 @@ class UploadDialogFragment : DialogFragment() {
                 .build()
                 .addTo(it.ryImg)
             it.ryImg.adapter = uploadImageAdapter
-            uploadImageAdapter.setList(uploadOrders)
-            standByCallback?.let { cb ->
-                run {
-                    cb.upload(uploadImageAdapter)
-                }
+            it.tvClose.setOnClickListener {
+                dismissAllowingStateLoss()
             }
+            uploadImageAdapter.setDoneCallback(object : UploadImageAdapter.DoneCallback {
+                override fun done(item: UploadTask) {
+                    standByCallback?.upload(item)
+                }
+            })
+            uploadImageAdapter.setList(uploadOrders)
+            MultiTaskUploader.addTasks(uploadOrders)
+            MultiTaskUploader.allLiveTask.observe(this, {
+                uploadImageAdapter.notifyDataSetChanged()
+                if (!MultiTaskUploader.haveTaskExecuting()) {
+                    dialogUploadImgBinding!!.tvClose.visibility = View.VISIBLE
+                }
+            })
+            MultiTaskUploader.startAllUploadTask()
         }
     }
 
     interface StandByCallback {
-        fun upload(adapter: UploadImageAdapter)
+        fun upload(item: UploadTask)
     }
 
     fun setStandByCallback(cb: StandByCallback): UploadDialogFragment {
@@ -93,7 +107,7 @@ class UploadDialogFragment : DialogFragment() {
 
 
     companion object {
-        fun newInstance(args: Bundle?): UploadDialogFragment? {
+        fun newInstance(args: Bundle?): UploadDialogFragment {
             val fragment = UploadDialogFragment()
             if (args != null) {
                 fragment.arguments = args

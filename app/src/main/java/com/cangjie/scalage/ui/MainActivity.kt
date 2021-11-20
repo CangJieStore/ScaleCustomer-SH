@@ -19,12 +19,14 @@ import com.cangjie.scalage.db.SubmitOrder
 import com.cangjie.scalage.entity.ListModel
 import com.cangjie.scalage.entity.MessageEvent
 import com.cangjie.scalage.entity.Update
+import com.cangjie.scalage.entity.UploadTask
 import com.cangjie.scalage.kit.show
 import com.cangjie.scalage.kit.update.model.DownloadInfo
 import com.cangjie.scalage.kit.update.model.TypeConfig
 import com.cangjie.scalage.kit.update.utils.AppUpdateUtils
 import com.cangjie.scalage.scale.SerialPortUtilForScale
 import com.cangjie.scalage.service.InitService
+import com.cangjie.scalage.service.MultiTaskUploader
 import com.cangjie.scalage.vm.ScaleViewModel
 import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ktx.immersionBar
@@ -182,40 +184,38 @@ class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
         })
         model.allUploadOrders.observe(this, {
             if (it.size > 0) {
-                val data = arrayListOf<SubmitOrder>()
+                val data = arrayListOf<UploadTask>()
                 it.forEach { item ->
                     run {
-                        data.add(item)
+                        val task = UploadTask(
+                            item.id,
+                            item.goodsId,
+                            item.batchId,
+                            item.batchPath,
+                            item.isUpload,
+                            0,
+                            null, MultiTaskUploader.IDLE
+                        )
+                        data.add(task)
                     }
                 }
                 val bundle = Bundle()
-                bundle.putParcelableArrayList("orders", data)
+                bundle.putSerializable("orders", data)
                 UploadDialogFragment.newInstance(bundle)
-                    ?.setStandByCallback(object : UploadDialogFragment.StandByCallback {
-                        override fun upload(adapter: UploadImageAdapter) {
-                            for (i in 0 until adapter.data.size) {
-                                val item = adapter.data[i]
-                                viewModel.uploadImg(item, object : ProgressCallback {
-                                    override fun progress(pb: Int, status: Int) {
-                                        runOnUiThread {
-                                            adapter.updateProgress(pb, i)
-                                            if (status == 0) {
-                                                val file = File(item.batchPath)
-                                                contentResolver.delete(
-                                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                                                    MediaStore.Images.Media.DATA + "=?",
-                                                    arrayOf(item.batchPath)
-                                                )
-                                                file.delete()
-                                                item.isUpload = 2
-                                                viewModel.update(item)
-                                            }
-                                        }
-                                    }
-                                })
-                            }
+                    .setStandByCallback(object : UploadDialogFragment.StandByCallback {
+                        override fun upload(item: UploadTask) {
+                            val submitOrder =
+                                SubmitOrder(item.id, item.goodsId, item.batchId, item.batchPath, 2)
+                            val file = File(item.batchPath)
+                            contentResolver.delete(
+                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                MediaStore.Images.Media.DATA + "=?",
+                                arrayOf(item.batchPath)
+                            )
+                            file.delete()
+                            viewModel.update(submitOrder)
                         }
-                    })?.show(supportFragmentManager, "")
+                    }).show(supportFragmentManager, "")
             }
         })
     }

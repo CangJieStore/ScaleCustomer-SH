@@ -47,6 +47,7 @@ class ScaleApplication : Application() {
             encryptKey = "encryptKey"
         }
         ToastUtils.init(this, BlackToastStyle())
+
         SerialPortUtilForScale.Instance().OpenSerialPort() //打开称重串口
         try {
             ScaleModule.Instance(this) //初始化称重模块
