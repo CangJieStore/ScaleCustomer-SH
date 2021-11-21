@@ -385,13 +385,13 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
     }
 
     private fun showShell() {
-        EditShellDialogFragment.newInstance(null)!!
-            .setAction(object : EditShellDialogFragment.SubmitAction {
-                override fun submit(shell: String) {
-                    currentShell = shell.toFloat()
-                    updateWeight()
-                }
-            }).show(supportFragmentManager, "shell")
+        EditPriceDialogFragment("手动去皮", "请输入皮重...").setContentCallback(object :
+            EditPriceDialogFragment.ContentCallback {
+            override fun content(content: String?) {
+                currentShell = if (content.isNullOrEmpty()) 0f else content.toFloat()
+                updateWeight()
+            }
+        }).show(supportFragmentManager)
     }
 
     override fun toast(notice: String?) {
@@ -705,8 +705,8 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
 
     private fun getDeliveryCount(): String {
         var count = 0.00
-        if (currentGoodsInfo != null) {
-            count += currentGoodsInfo!!.receive_quantity.toDouble()
+        currentGoodsInfo?.let {
+            count += it.receive_quantity.toDouble()
             for (item in submitList) {
                 if (!TextUtils.isEmpty(item.batch_count)) {
                     count += item.batch_count.toFloat()
@@ -813,21 +813,10 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
                 }
                 val bundle = Bundle()
                 bundle.putSerializable("orders", data)
-                UploadDialogFragment.newInstance(bundle)
-                    .setStandByCallback(object : UploadDialogFragment.StandByCallback {
-                        override fun upload(item: UploadTask) {
-                            val submitOrder =
-                                SubmitOrder(item.id, item.goodsId, item.batchId, item.batchPath, 2)
-                            val file = File(item.batchPath)
-                            contentResolver.delete(
-                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                                MediaStore.Images.Media.DATA + "=?",
-                                arrayOf(item.batchPath)
-                            )
-                            file.delete()
-                            viewModel.update(submitOrder)
-                        }
-                    }).show(supportFragmentManager, "")
+                bundle.putInt("type", 0)
+                val intent = Intent(this@CheckActivity, UploadImgActivity::class.java)
+                intent.putExtras(bundle)
+                startActivity(intent)
             }
         })
     }
@@ -867,9 +856,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
                     mBinding.tvDeliveryCurrent.text = "0.00"
                 }
             }
-            currentGoodsInfo ?: let {
-                resetCheck()
-            }
+            currentGoodsInfo ?: resetCheck()
         } catch (ee: java.lang.Exception) {
             ee.printStackTrace()
             ToastUtils.show(ee.message!!)

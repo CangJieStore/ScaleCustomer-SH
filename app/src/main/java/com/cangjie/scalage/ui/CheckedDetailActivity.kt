@@ -22,7 +22,7 @@ import com.gyf.immersionbar.ktx.immersionBar
  */
 class CheckedDetailActivity : BaseMvvmActivity<ActivityCheckedDetailBinding, ScaleViewModel>() {
 
-    private var currentOrder: OrderInfo?=null
+    private var currentOrder: OrderInfo? = null
 
     private val detailAdapter by lazy {
         DetailAdapter(object : DetailAdapter.PreviewAction {
@@ -45,7 +45,7 @@ class CheckedDetailActivity : BaseMvvmActivity<ActivityCheckedDetailBinding, Sca
         dividerBuilder()
             .color(Color.parseColor("#cccccc"))
             .size(1, TypedValue.COMPLEX_UNIT_DIP)
-            .showLastDivider()
+            .showFirstDivider()
             .build()
             .addTo(mBinding.ryOrders)
         mBinding.adapter = detailAdapter
@@ -56,7 +56,6 @@ class CheckedDetailActivity : BaseMvvmActivity<ActivityCheckedDetailBinding, Sca
 
     override fun layoutId(): Int = R.layout.activity_checked_detail
     override fun initImmersionBar() {
-        super.initImmersionBar()
         immersionBar {
             fullScreen(true)
             hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR)
@@ -65,11 +64,19 @@ class CheckedDetailActivity : BaseMvvmActivity<ActivityCheckedDetailBinding, Sca
         }
     }
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        immersionBar {
+            hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR)
+            init()
+        }
+    }
+
     override fun handleEvent(msg: MsgEvent) {
         super.handleEvent(msg)
         if (msg.code == 3) {
             finish()
-        }else if(msg.code==300){
+        } else if (msg.code == 300) {
             val intent = Intent(this, CheckActivity::class.java)
             intent.putExtra("id", currentOrder!!.trade_no)
             startActivity(intent)

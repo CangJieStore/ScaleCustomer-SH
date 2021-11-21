@@ -9,6 +9,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.cangjie.scalage.R
 import com.cangjie.scalage.databinding.DialogPreviewImgBinding
+import com.gyf.immersionbar.BarHide
+import com.gyf.immersionbar.ktx.destroyImmersionBar
+import com.gyf.immersionbar.ktx.immersionBar
 
 /**
  * @author nvwa@cangjie
@@ -28,13 +31,17 @@ class PreviewCardDialogFragment : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
+        immersionBar {
+            hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR)
+            init()
+        }
         dialog!!.setCanceledOnTouchOutside(false)
         val dialogWindow = dialog!!.window
         dialogWindow!!.setGravity(Gravity.CENTER)
         val lp = dialogWindow.attributes
         val displayMetrics = requireContext().resources.displayMetrics
         lp.height = (displayMetrics.heightPixels * 0.8f).toInt()
-        lp.width=(displayMetrics.widthPixels * 0.7f).toInt()
+        lp.width = (displayMetrics.widthPixels * 0.7f).toInt()
         dialogWindow.attributes = lp
     }
 
@@ -53,8 +60,13 @@ class PreviewCardDialogFragment : DialogFragment() {
         path = arguments?.get("info") as String?
         previewCardBinding!!.path = path
         previewCardBinding!!.ivClose.setOnClickListener {
-            dismiss()
+            dismissAllowingStateLoss()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        dialog?.let { destroyImmersionBar(it) }
     }
 
 

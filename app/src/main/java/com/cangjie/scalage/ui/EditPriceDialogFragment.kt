@@ -47,10 +47,10 @@ class EditPriceDialogFragment(title: String, hint: String) : BaseBottomDialog() 
             keyboardUtil.setOnOkClick {
                 val editContent = content.text.toString().trim()
                 contentCallback?.content(editContent)
-                dismiss()
+                dismissAllowingStateLoss()
             }
             keyboardUtil.setOnCancelClick {
-                dismiss()
+                dismissAllowingStateLoss()
             }
         }
     }

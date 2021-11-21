@@ -17,7 +17,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:padding="@dimen/dp15"
-                android:text="上传验收图片"
+                android:text="上传验收图片,请勿关机"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp20" />
 
@@ -34,6 +34,7 @@
                 android:textSize="@dimen/sp18"
                 android:visibility="gone" />
         </RelativeLayout>
+
 
 
         <androidx.recyclerview.widget.RecyclerView

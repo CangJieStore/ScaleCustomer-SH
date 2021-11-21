@@ -31,6 +31,8 @@ class ScaleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         setApplication(this)
+        ToastUtils.init(this, BlackToastStyle())
+        SerialPortUtilForScale.Instance().OpenSerialPort() //打开称重串口
         UMConfigure.setLogEnabled(true);
         //友盟预初始化
         UMConfigure.preInit(this, "61931c62e0f9bb492b5d5afb", "ScalaCustomer")
@@ -45,17 +47,6 @@ class ScaleApplication : Application() {
         CangJie.config {
             multiProcess = true
             encryptKey = "encryptKey"
-        }
-        ToastUtils.init(this, BlackToastStyle())
-
-        SerialPortUtilForScale.Instance().OpenSerialPort() //打开称重串口
-        try {
-            ScaleModule.Instance(this) //初始化称重模块
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
-            ViewUtils.runOnUiThread {
-                ToastUtils.show("初始化称重主板错误！")
-            }
         }
         HttpManager.init(this)
         update()
@@ -87,7 +78,6 @@ class ScaleApplication : Application() {
 
     companion object {
         private var sInstance: Application? = null
-
 
         @Synchronized
         fun setApplication(application: Application) {

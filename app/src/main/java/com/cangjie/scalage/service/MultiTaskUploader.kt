@@ -5,6 +5,7 @@ import com.cangjie.scalage.base.http.Url
 import com.cangjie.scalage.core.db.CangJie
 import com.cangjie.scalage.entity.UploadTask
 import com.rxjava.rxlife.RxLife
+import kotlinx.coroutines.delay
 import rxhttp.RxHttp
 import java.io.File
 import java.util.*
@@ -22,13 +23,14 @@ object MultiTaskUploader {
     const val COMPLETED = 4        //已完成
     const val FAIL = 5             //下载失败
     const val CANCEL = 6           //取消状态，等待时被取消
+    const val ERROR = 7
 
     private const val MAX_TASK_COUNT = 1   //最大并发数
 
     val allLiveTask = MutableLiveData<ArrayList<UploadTask>>() //所有下载任务
     private val waitTask = LinkedList<UploadTask>() //等待下载的任务
-    private val downloadingTask = LinkedList<UploadTask>() //下载中的任务
-
+    private val uploadTask = LinkedList<UploadTask>() //下载中的任务
+    private var taskCallback: UploadStatusCallback? = null
 
     fun addTasks(tasks: ArrayList<UploadTask>) {
         val allTaskList = getAllTask()
@@ -48,33 +50,52 @@ object MultiTaskUploader {
     }
 
     private fun upload(task: UploadTask) {
-        if (downloadingTask.size >= MAX_TASK_COUNT) {
+        if (uploadTask.size >= MAX_TASK_COUNT) {
             task.state = WAITING
             waitTask.offer(task)
             return
         }
-        val disposable = RxHttp.postForm(Url.upload)
-            .add("access_token", CangJie.getString("token"))
-            .add("id", task.goodsId)
-            .add("batch", task.batchId.toInt() - 1)
-            .addFile("file", File(task.batchPath))
-            .upload {
-                task.progress = it.progress
-                updateTask()
-            }.asString()
-            .doFinally {
-                updateTask()
-                downloadingTask.remove(task)
-                waitTask.poll()?.let { upload(it) }
-            }
-            .subscribe({
-                task.state = COMPLETED
-            }, {
-                task.state = FAIL
-            })
-        task.state = UPLODING
-        task.disposable = disposable
-        downloadingTask.add(task)
+        val file = File(task.batchPath)
+        if (file.exists()) {
+            val disposable = RxHttp.postForm(Url.upload)
+                .add("access_token", CangJie.getString("token"))
+                .add("id", task.goodsId)
+                .add("batch", task.batchId.toInt() - 1)
+                .addFile("file", file)
+                .upload {
+                    task.progress = it.progress
+                    updateTask()
+                }.asString()
+                .doFinally {
+                    updateTask()
+                    uploadTask.remove(task)
+                    waitTask.poll()?.let { upload(it) }
+                }
+                .subscribe({
+                    task.state = COMPLETED
+                    taskCallback?.upload(COMPLETED, waitTask.size, getAllTask().size, task)
+                }, {
+                    task.state = FAIL
+                    taskCallback?.upload(FAIL, waitTask.size, getAllTask().size, task)
+                })
+            task.state = UPLODING
+            task.disposable = disposable
+            uploadTask.add(task)
+        } else {
+            updateTask()
+            uploadTask.remove(task)
+            waitTask.poll()?.let { upload(it) }
+            taskCallback?.upload(ERROR, waitTask.size, getAllTask().size, task)
+        }
+
+    }
+
+    interface UploadStatusCallback {
+        fun upload(status: Int, waitSize: Int, totalSize: Int, item: UploadTask)
+    }
+
+    fun setUploadTaskCallback(cb: UploadStatusCallback) {
+        this.taskCallback = cb
     }
 
     fun cancelAllTask() {
@@ -85,7 +106,7 @@ object MultiTaskUploader {
             iterator.remove()
         }
 
-        iterator = downloadingTask.iterator()
+        iterator = uploadTask.iterator()
         while (iterator.hasNext()) {
             val task = iterator.next()
             iterator.remove()
@@ -102,7 +123,11 @@ object MultiTaskUploader {
     }
 
     fun haveTaskExecuting(): Boolean {
-        return waitTask.size > 0 || downloadingTask.size > 0
+        return waitTask.size > 0 || uploadTask.size > 0
+    }
+
+    fun getWaitTask(): String {
+        return (getAllTask().size - waitTask.size).toString() + "/" + getAllTask().size.toString()
     }
 
     private fun getAllTask(): ArrayList<UploadTask> {

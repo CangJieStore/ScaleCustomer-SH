@@ -237,23 +237,6 @@ class ScaleViewModel : BaseScaleViewModel() {
         }
     }
 
-    fun uploadImg(order: SubmitOrder, progressCb: ProgressCallback?) {
-        viewModelScope.launch(Dispatchers.IO) {
-            RxHttp.postForm(Url.upload)
-                .add("access_token", CangJie.getString("token"))
-                .add("id", order.goodsId)
-                .add("batch", order.batchId.toInt() - 1)
-                .addFile("file", File(order.batchPath))
-                .upload(AndroidSchedulers.mainThread()) {
-                    progressCb?.progress(it.progress, -1)
-                }.toClass<UploadResult>().awaitResult {
-                    progressCb?.progress(100, it.code)
-                }.onFailure {
-                    toast(it.errorMsg)
-                }
-        }
-    }
-
     fun update(book: SubmitOrder) = viewModelScope.launch(Dispatchers.IO) {
         bookRepository.update(book)
     }

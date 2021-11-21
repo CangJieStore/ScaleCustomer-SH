@@ -80,17 +80,23 @@
         <activity
             android:name=".ui.CheckedDetailActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name="com.cangjie.scalage.ui.UploadImgActivity"
+            android:theme="@style/DialogActivityTheme" />
+
+        <service android:name="com.cangjie.scalage.service.UploadImgService" />
+
 
         <service android:name=".service.InitService" />
 
-<!--        <receiver-->
-<!--            android:name=".service.BootBroadcastReceiver"-->
-<!--            android:enabled="true"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter android:priority="1000">-->
-<!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
-<!--            </intent-filter>-->
-<!--        </receiver>-->
+        <!--        <receiver-->
+        <!--            android:name=".service.BootBroadcastReceiver"-->
+        <!--            android:enabled="true"-->
+        <!--            android:exported="true">-->
+        <!--            <intent-filter android:priority="1000">-->
+        <!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
+        <!--            </intent-filter>-->
+        <!--        </receiver>-->
         <receiver
             android:name=".kit.update.utils.MyReceiver"
             android:exported="true">
@@ -108,6 +114,7 @@
             android:name=".kit.update.activity.ThemeActivity"
             android:theme="@style/DialogActivityTheme" />
 
+
         <service android:name=".kit.update.service.UpdateService" />
         <service android:name=".kit.update.utils.DownloadService" />
         <service
@@ -122,6 +129,7 @@
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_service_config" />
         </service>
+
         <provider
             android:name=".kit.update.utils.InstallFileProvider"
             android:authorities="${applicationId}.fileprovider"

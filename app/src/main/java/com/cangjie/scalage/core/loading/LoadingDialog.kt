@@ -8,6 +8,9 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnSystemUiVisibilityChangeListener
+import android.view.Window
+import android.view.WindowManager
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.cangjie.scalage.core.utils.DensityUtil.dip2px
@@ -43,8 +46,19 @@ object LoadingDialog {
             mDialog!!.window!!.attributes
         layoutParams.width = screenW
         layoutParams.height = screenH
-        mDialog!!.window!!.attributes = layoutParams
-
+        mDialog?.let {
+            it.window!!.attributes = layoutParams
+//            it.window!!.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//            it.window!!.decorView.setOnSystemUiVisibilityChangeListener {
+//                var uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or  //布局位于状态栏下方
+//                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or  //全屏
+//                        View.SYSTEM_UI_FLAG_FULLSCREEN or  //隐藏导航栏
+//                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+//                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                uiOptions = uiOptions or 0x00001000
+//                mDialog!!.window!!.decorView.systemUiVisibility = uiOptions
+//            }
+        }
         //布局相关
         dialog_window_background =
             mProgressDialogView.findViewById(R.id.bg_window)
@@ -152,7 +166,7 @@ object LoadingDialog {
                 mDialog!!.show()
             }
         } catch (e: Exception) {
-            Log.e("exception",e.message.toString())
+            Log.e("exception", e.message.toString())
         }
     }
 

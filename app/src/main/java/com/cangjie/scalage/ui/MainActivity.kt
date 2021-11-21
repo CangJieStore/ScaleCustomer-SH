@@ -1,21 +1,16 @@
 package com.cangjie.scalage.ui
 
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.cangjie.scalage.BR
 import com.cangjie.scalage.R
-import com.cangjie.scalage.adapter.UploadImageAdapter
 import com.cangjie.scalage.base.BaseFragmentPagerAdapter
 import com.cangjie.scalage.base.DateUtil
 import com.cangjie.scalage.base.workOnIO
 import com.cangjie.scalage.core.BaseMvvmActivity
 import com.cangjie.scalage.core.event.MsgEvent
 import com.cangjie.scalage.databinding.ActivityMainBinding
-import com.cangjie.scalage.db.SubmitOrder
 import com.cangjie.scalage.entity.ListModel
 import com.cangjie.scalage.entity.MessageEvent
 import com.cangjie.scalage.entity.Update
@@ -24,7 +19,6 @@ import com.cangjie.scalage.kit.show
 import com.cangjie.scalage.kit.update.model.DownloadInfo
 import com.cangjie.scalage.kit.update.model.TypeConfig
 import com.cangjie.scalage.kit.update.utils.AppUpdateUtils
-import com.cangjie.scalage.scale.SerialPortUtilForScale
 import com.cangjie.scalage.service.InitService
 import com.cangjie.scalage.service.MultiTaskUploader
 import com.cangjie.scalage.vm.ScaleViewModel
@@ -32,11 +26,9 @@ import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ktx.immersionBar
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
-import java.io.File
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.system.exitProcess
 
 class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
 
@@ -56,6 +48,7 @@ class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
     }
 
     override fun initActivity(savedInstanceState: Bundle?) {
+        viewModel.loadUpdate()
         mBinding.vpOrders.adapter = mAdapter
         mBinding.tabOrders.setViewPager(mBinding.vpOrders)
         mBinding.tabOrders.currentTab = 0
@@ -90,7 +83,6 @@ class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
     override fun layoutId(): Int = R.layout.activity_main
 
     override fun initImmersionBar() {
-        super.initImmersionBar()
         immersionBar {
             fullScreen(true)
             hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR)
@@ -140,7 +132,6 @@ class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.loadUpdate()
         EventBus.getDefault().post(MessageEvent(0, viewModel.chooseDateFiled.get().toString()))
     }
 
@@ -201,21 +192,10 @@ class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
                 }
                 val bundle = Bundle()
                 bundle.putSerializable("orders", data)
-                UploadDialogFragment.newInstance(bundle)
-                    .setStandByCallback(object : UploadDialogFragment.StandByCallback {
-                        override fun upload(item: UploadTask) {
-                            val submitOrder =
-                                SubmitOrder(item.id, item.goodsId, item.batchId, item.batchPath, 2)
-                            val file = File(item.batchPath)
-                            contentResolver.delete(
-                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                                MediaStore.Images.Media.DATA + "=?",
-                                arrayOf(item.batchPath)
-                            )
-                            file.delete()
-                            viewModel.update(submitOrder)
-                        }
-                    }).show(supportFragmentManager, "")
+                bundle.putInt("type", 1)
+                val intent = Intent(this@MainActivity, UploadImgActivity::class.java)
+                intent.putExtras(bundle)
+                startActivity(intent)
             }
         })
     }

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/dp8"
+            app:cardElevation="@dimen/dp_4"
+            app:contentPadding="@dimen/dp10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/dp20">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp10"
+                    android:text="正在上传验收图片，请勿关机"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp20" />
+
+                <com.cangjie.scalage.kit.ZzHorizontalProgressBar
+                    android:id="@+id/pb_upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp10"
+                    android:layout_margin="@dimen/dp10"
+                    app:zpb_bg_color="#f0f0f0"
+                    app:zpb_max="100"
+                    app:zpb_padding="0dp"
+                    app:zpb_pb_color="@color/theme_color"
+                    app:zpb_progress="0" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/dp10"
+                    android:paddingEnd="@dimen/dp10">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_percent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="0%"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp18" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_upload_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:text="*/*"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp18" />
+
+                </RelativeLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_close"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:padding="10dp"
+                android:visibility="gone"
+                android:src="@mipmap/update_close_img" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

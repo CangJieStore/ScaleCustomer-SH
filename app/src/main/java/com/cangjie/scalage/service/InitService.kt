@@ -22,7 +22,6 @@ import kotlin.system.exitProcess
  */
 class InitService : Service(), CoroutineScope by MainScope() {
 
-
     override fun onBind(intent: Intent): IBinder? {
         return null
     }

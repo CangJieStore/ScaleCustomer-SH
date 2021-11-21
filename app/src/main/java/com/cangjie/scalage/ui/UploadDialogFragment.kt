@@ -66,7 +66,6 @@ class UploadDialogFragment : DialogFragment() {
         val uploadOrders =
             arguments?.getSerializable("orders") as ArrayList<UploadTask>
         val uploadImageAdapter = UploadImageAdapter()
-
         dialogUploadImgBinding?.let {
             requireActivity().dividerBuilder().color(Color.TRANSPARENT)
                 .size(10, TypedValue.COMPLEX_UNIT_DIP)
@@ -87,7 +86,7 @@ class UploadDialogFragment : DialogFragment() {
             uploadImageAdapter.setList(uploadOrders)
             MultiTaskUploader.addTasks(uploadOrders)
             MultiTaskUploader.allLiveTask.observe(this, {
-                uploadImageAdapter.notifyDataSetChanged()
+
                 if (!MultiTaskUploader.haveTaskExecuting()) {
                     dialogUploadImgBinding!!.tvClose.visibility = View.VISIBLE
                 }

@@ -14,6 +14,9 @@ import com.cangjie.scalage.adapter.SubmitAdapter
 import com.cangjie.scalage.databinding.DialogSubmitBinding
 import com.cangjie.scalage.entity.SubmitInfo
 import com.fondesa.recyclerviewdivider.dividerBuilder
+import com.gyf.immersionbar.BarHide
+import com.gyf.immersionbar.ktx.destroyImmersionBar
+import com.gyf.immersionbar.ktx.immersionBar
 import kotlinx.android.synthetic.main.dialog_submit.*
 
 /**
@@ -37,13 +40,16 @@ class SubmitDialogFragment : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
+        immersionBar {
+            hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR)
+            init()
+        }
         dialog!!.setCanceledOnTouchOutside(false)
         val dialogWindow = dialog!!.window
         dialogWindow!!.setGravity(Gravity.CENTER)
         val lp = dialogWindow.attributes
         val displayMetrics = requireContext().resources.displayMetrics
-//        lp.height = (displayMetrics.heightPixels * 0.75f).toInt()
-        lp.width= (displayMetrics.widthPixels * 0.6f).toInt()
+        lp.width = (displayMetrics.widthPixels * 0.6f).toInt()
         dialogWindow.attributes = lp
     }
 
@@ -61,7 +67,7 @@ class SubmitDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         data = arguments?.get("info") as MutableList<SubmitInfo>
         submitBinding!!.ivClose.setOnClickListener {
-            dismiss()
+            dismissAllowingStateLoss()
         }
         submitBinding!!.rbType1.setOnClickListener {
             rb_type1.isChecked = true
@@ -74,7 +80,7 @@ class SubmitDialogFragment : DialogFragment() {
         submitBinding!!.tvSubmitName.text = "商品名称：" + data!![0].name
         submitBinding!!.tvBuyCount.text = "配送数量：" + data!![0].receive_count
         submitBinding!!.tvSubmitTotal.text = "验收总数量：" + calTotal()
-        submitBinding!!.tvSendUnit.text="配送单位："+data!![0].receive_unit
+        submitBinding!!.tvSendUnit.text = "配送单位：" + data!![0].receive_unit
         requireActivity().dividerBuilder()
             .color(Color.parseColor("#cccccc"))
             .size(1, TypedValue.COMPLEX_UNIT_DIP)
@@ -85,7 +91,7 @@ class SubmitDialogFragment : DialogFragment() {
         submitAdapter.setList(data)
         submitBinding!!.btnSubmit.setOnClickListener {
             if (action != null) {
-                dismiss()
+                dismissAllowingStateLoss()
                 val submitMode = if (rb_type1.isChecked) {
                     0
                 } else {
@@ -129,6 +135,10 @@ class SubmitDialogFragment : DialogFragment() {
         return this
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        dialog?.let { destroyImmersionBar(it) }
+    }
 
     companion object {
         fun newInstance(args: Bundle?): SubmitDialogFragment? {
