@@ -1,5 +1,6 @@
 package com.cangjie.scalage.adapter
 
+import android.view.View
 import com.cangjie.scalage.R
 import com.cangjie.scalage.databinding.LayoutGoodsItemBinding
 import com.cangjie.scalage.entity.GoodsInfo
@@ -13,6 +14,7 @@ import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 class DetailAdapter(preview: PreviewAction) :
     BaseQuickAdapter<GoodsInfo, BaseDataBindingHolder<LayoutGoodsItemBinding>>(R.layout.layout_goods_item) {
     private val previewAction = preview
+    private var orderType = 0
     override fun convert(holder: BaseDataBindingHolder<LayoutGoodsItemBinding>, item: GoodsInfo) {
         holder.dataBinding?.let {
             it.info = item
@@ -24,6 +26,11 @@ class DetailAdapter(preview: PreviewAction) :
             it.tvSubmitGain.setOnClickListener {
                 previewAction.again(item.id)
             }
+            if (orderType == 1) {
+                it.tvSubmitGain.visibility = View.GONE
+            } else {
+                it.tvSubmitGain.visibility = View.VISIBLE
+            }
             it.stockMode = if (item.stock_mode == 0) {
                 "即入即出"
             } else {
@@ -32,8 +39,12 @@ class DetailAdapter(preview: PreviewAction) :
         }
     }
 
+    fun setOrderType(oType: Int) {
+        this.orderType = oType
+    }
+
     interface PreviewAction {
         fun preview(path: String)
-        fun again(goodsId:String)
+        fun again(goodsId: String)
     }
 }

@@ -15,6 +15,8 @@
         <variable
             name="adapter"
             type="com.chad.library.adapter.base.BaseQuickAdapter" />
+
+        <import type="android.view.View" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -253,6 +255,7 @@
                     android:text="入库类型"
                     android:textColor="@color/black_3"
                     android:textSize="@dimen/sp16" />
+
                 <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
@@ -265,7 +268,8 @@
                     android:gravity="center"
                     android:text="操作"
                     android:textColor="@color/black_3"
-                    android:textSize="@dimen/sp16" />
+                    android:textSize="@dimen/sp16"
+                    android:visibility="@{info.state==0?View.VISIBLE:View.GONE}" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

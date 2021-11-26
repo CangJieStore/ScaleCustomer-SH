@@ -13,5 +13,6 @@ data class OrderInfo(
     val deliver_quantity: String,
     val collect_time: String,
     val circulate_name: String,
+    val state: Int,
     val goods: MutableList<GoodsInfo>
 ) : Serializable

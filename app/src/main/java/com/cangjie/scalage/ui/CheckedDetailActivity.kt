@@ -48,6 +48,7 @@ class CheckedDetailActivity : BaseMvvmActivity<ActivityCheckedDetailBinding, Sca
             .showFirstDivider()
             .build()
             .addTo(mBinding.ryOrders)
+        currentOrder?.state?.let { detailAdapter.setOrderType(it) }
         mBinding.adapter = detailAdapter
         detailAdapter.setList(currentOrder!!.goods)
     }

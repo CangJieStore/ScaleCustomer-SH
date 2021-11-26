@@ -160,6 +160,7 @@
             android:layout_weight="0.5"
             android:gravity="center"
             android:padding="@dimen/dp8"
+            android:visibility="gone"
             android:text="补验"
             android:textColor="@color/theme_color"
             android:textSize="@dimen/sp16" />

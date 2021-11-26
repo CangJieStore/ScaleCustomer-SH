@@ -34,7 +34,7 @@ class UploadImgActivity : BaseActivity<ActivityUploadImgBinding>() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(event: UploadEvent) {
         if (event.code == 222) {
-            Handler().postDelayed(Runnable {
+            runOnUiThread {
                 val lessSize = event.totalSize - event.waitSize
                 val totalSize = event.totalSize
                 val percent = (lessSize / totalSize * 1.0) * 100
@@ -44,9 +44,11 @@ class UploadImgActivity : BaseActivity<ActivityUploadImgBinding>() {
                 mBinding.pbUpload.progress = percent.toInt()
                 """${percent.toInt()}%""".also { mBinding.tvPercent.text = it }
                 if (lessSize == totalSize) {
+                    mBinding.tvUploadSize.text = "上传完成"
                     mBinding.ivClose.visibility = View.VISIBLE
+                    Handler().postDelayed({ finish() }, 1500)
                 }
-            }, 50)
+            }
         }
     }
 
