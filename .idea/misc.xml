@@ -30,6 +30,9 @@
         <entry key="app/src/main/res/layout/layout_order_item.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/layout_submit_item.xml" value="0.13728470111448834" />
         <entry key="app/src/main/res/layout/layout_upload_item.xml" value="0.13728470111448834" />
+        <entry key="app/src/main/res/layout/loading_process.xml" value="0.13728470111448834" />
+        <entry key="libuvccamera/src/main/res/layout/dialog_camera.xml" value="0.28743718592964823" />
+        <entry key="libuvccamera/src/main/res/layout/listitem_device.xml" value="0.13728470111448834" />
       </map>
     </option>
   </component>

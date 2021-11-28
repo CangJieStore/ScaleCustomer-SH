@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:binding="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/tools"
+    xmlns:binding="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -467,10 +468,25 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <androidx.camera.view.PreviewView
-                            android:id="@+id/previewView"
+                        <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="180dp" />
+                            android:layout_height="190dp"
+                            android:background="@color/black">
+
+                            <com.serenegiant.usb.widget.UVCCameraTextureView
+                                android:id="@+id/has_camera"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                            <com.cangjie.scalage.core.loading.LoadingIndicator
+                                android:id="@+id/pb_starting"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_gravity="center"
+                                app:indicatorName="com.cangjie.scalage.core.loading.ArcRotateIndicator" />
+
+                        </FrameLayout>
+
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/ry_img"

@@ -4,9 +4,9 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/02f93e386f34e6edb334c6dc558a184a/transformed/jetified-rxlife-rxjava3-2.2.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/78eba4caa927001dc637bd46598dfa01/transformed/jetified-rxlife-rxjava3-2.2.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/267e701d73620d8f673f37cf75a3f62e/transformed/jetified-rxlife-rxjava3-2.2.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/84eaebf23b4496a27d244067b4699ffd/transformed/jetified-rxlife-rxjava3-2.2.1/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/84eaebf23b4496a27d244067b4699ffd/transformed/jetified-rxlife-rxjava3-2.2.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/84eaebf23b4496a27d244067b4699ffd/transformed/jetified-rxlife-rxjava3-2.2.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/84eaebf23b4496a27d244067b4699ffd/transformed/jetified-rxlife-rxjava3-2.2.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/84eaebf23b4496a27d244067b4699ffd/transformed/jetified-rxlife-rxjava3-2.2.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

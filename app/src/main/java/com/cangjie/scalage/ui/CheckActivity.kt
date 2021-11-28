@@ -4,18 +4,22 @@ import android.content.*
 import android.content.res.Configuration
 import android.graphics.*
 import android.hardware.display.DisplayManager
+import android.hardware.usb.UsbDevice
 import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
 import android.view.KeyEvent
+import android.view.Surface
 import android.view.View
 import android.webkit.MimeTypeMap
+import android.widget.Toast
 import androidx.camera.core.*
 import androidx.camera.core.Camera
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -29,7 +33,6 @@ import com.cangjie.scalage.R
 import com.cangjie.scalage.adapter.CheckAdapter
 import com.cangjie.scalage.adapter.CheckedAdapter
 import com.cangjie.scalage.adapter.ImageAdapter
-import com.cangjie.scalage.adapter.UploadImageAdapter
 import com.cangjie.scalage.base.workOnIO
 import com.cangjie.scalage.core.BaseMvvmActivity
 import com.cangjie.scalage.core.event.MsgEvent
@@ -47,10 +50,12 @@ import com.cangjie.scalage.scale.FormatUtil
 import com.cangjie.scalage.scale.ScaleModule
 import com.cangjie.scalage.service.MultiTaskUploader
 import com.cangjie.scalage.vm.ScaleViewModel
+import com.cangjie.uvccamera.UVCCameraHelper
 import com.fondesa.recyclerviewdivider.dividerBuilder
-import com.google.gson.Gson
 import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ktx.immersionBar
+import com.serenegiant.usb.common.AbstractUVCCameraHandler.OnCaptureListener
+import com.serenegiant.usb.widget.CameraViewInterface
 import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
@@ -72,18 +77,12 @@ import kotlin.math.min
  */
 class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
 
+    //camera
+    private var mCameraHelper: UVCCameraHelper? = null
+    private var mUVCCameraView: CameraViewInterface? = null
+    private var isRequest = false
+    private var isPreview = false
     private lateinit var outputDirectory: File
-    private var displayId: Int = -1
-    private var lensFacing: Int = CameraSelector.LENS_FACING_BACK
-    private var preview: Preview? = null
-    private var imageCapture: ImageCapture? = null
-    private var imageAnalyzer: ImageAnalysis? = null
-    private var camera: Camera? = null
-    private var sliderAppearingJob: Job? = null
-    private val displayManager by lazy {
-        getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
-    }
-    private lateinit var cameraExecutor: ExecutorService
     private var readDataReceiver: ReadDataReceiver? = null
 
     private var currentGoodsInfo: GoodsInfo? = null
@@ -119,7 +118,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
         orderID = intent.getSerializableExtra("id") as String
         viewModel.loadDetail(orderID!!)
         date = intent.getStringExtra("date")
-        initCamera()
+        hasCamera()
         dividerBuilder()
             .color(Color.parseColor("#cccccc"))
             .size(1, TypedValue.COMPLEX_UNIT_DIP)
@@ -244,6 +243,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
 
     override fun onStart() {
         super.onStart()
+        mCameraHelper?.registerUSB()
         initWeight()
     }
 
@@ -338,7 +338,10 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
                         }
                     }
                     val currentNum = deliveryCount()
-                    takePhoto(currentNum)
+                    if (isPreview) {
+                        takePicture(currentNum)
+                    }
+//                    takePhoto(currentNum)
                 }
             }
             200 -> {//submit response
@@ -399,101 +402,15 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
         show(this, 2000, notice!!)
     }
 
-    private fun initCamera() {
-        cameraExecutor = Executors.newSingleThreadExecutor()
-        displayManager.registerDisplayListener(displayListener, null)
-        outputDirectory = getOutputDirectory(this)
-        mBinding.previewView.post {
-            displayId = mBinding.previewView.display.displayId
-            updateCameraUi()
-            bindCameraUseCases()
-        }
-        setUpScreenRotationListener()
-    }
-
-    private val displayListener = object : DisplayManager.DisplayListener {
-        override fun onDisplayChanged(p0: Int) {
-            if (displayId == this@CheckActivity.displayId) {
-                imageCapture?.targetRotation = mBinding.root.display.rotation
-                imageAnalyzer?.targetRotation = mBinding.root.display.rotation
-            }
-        }
-
-        override fun onDisplayAdded(displayId: Int) = Unit
-        override fun onDisplayRemoved(displayId: Int) = Unit
-    }
-
-    private fun setUpScreenRotationListener() {
-        val rotationListener = object : RotationListener(this) {
-            override fun onSimpleOrientationChanged(orientation: Int) {
-                when (orientation) {
-                    Configuration.ORIENTATION_LANDSCAPE -> {
-                    }
-                    Configuration.ORIENTATION_PORTRAIT -> {
-                    }
-                }
-            }
-        }
-        rotationListener.enable()
-    }
-
 
     override fun onDestroy() {
         super.onDestroy()
         readDataReceiver?.let {
             unregisterReceiver(it)
         }
-        cameraExecutor.shutdown()
-        displayManager.unregisterDisplayListener(displayListener)
-        sliderAppearingJob?.cancel()
+        mCameraHelper?.release()
     }
 
-    private fun bindCameraUseCases() {
-        val metrics = DisplayMetrics().also { mBinding.previewView.display.getRealMetrics(it) }
-        val screenAspectRatio = aspectRatio(metrics.widthPixels, metrics.heightPixels)
-        val rotation = mBinding.previewView.display.rotation
-        val cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
-
-        cameraProviderFuture.addListener({
-            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-            preview = Preview.Builder()
-                .setTargetAspectRatio(screenAspectRatio)
-                .setTargetRotation(rotation)
-                .build()
-
-            preview?.setSurfaceProvider(mBinding.previewView.surfaceProvider)
-
-            imageCapture = ImageCapture.Builder()
-                .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
-                .setTargetAspectRatio(screenAspectRatio)
-                .setTargetRotation(rotation)
-                .build()
-
-            imageAnalyzer = ImageAnalysis.Builder()
-                .setTargetAspectRatio(screenAspectRatio)
-                .setTargetRotation(rotation)
-                .build()
-                .also {
-                    it.setAnalyzer(cameraExecutor, LuminosityAnalyzer { luminosityLevel ->
-                    })
-                }
-
-            cameraProvider.unbindAll()
-
-            try {
-                camera = cameraProvider.bindToLifecycle(
-                    this,
-                    cameraSelector,
-                    preview,
-                    imageCapture,
-                    imageAnalyzer
-                )
-            } catch (exc: Exception) {
-            }
-
-        }, ContextCompat.getMainExecutor(this))
-    }
 
     private fun updateCameraUi() {
         lifecycleScope.launch(Dispatchers.IO) {
@@ -515,77 +432,115 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
         }
     }
 
-    private fun takePhoto(currentWeight: String) {
+    private fun takePicture(currentWeight: String) {
         loading("处理中...")
-        imageCapture?.let { imageCapture ->
-            val photoFile = createFile(
-                outputDirectory,
-                getString(R.string.output_photo_date_template),
-                getString(R.string.output_photo_ext)
-            )
-            val metadata = ImageCapture.Metadata().apply {
-                isReversedHorizontal = lensFacing == CameraSelector.LENS_FACING_FRONT
-            }
-
-            val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile)
-                .setMetadata(metadata)
-                .build()
-
-            imageCapture.takePicture(
-                outputOptions,
-                cameraExecutor,
-                object : ImageCapture.OnImageSavedCallback {
-                    override fun onError(exc: ImageCaptureException) {
-                    }
-
-                    override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                        val savedUri = output.savedUri ?: Uri.fromFile(photoFile)
-                        val createTimeSdf1 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-                        var reBatch = 0
-                        if (currentGoodsInfo!!.batch.isNotEmpty()) {
-                            reBatch = currentGoodsInfo!!.batch.toInt() + 1
-                        }
-                        val labels: MutableList<String> =
-                            ArrayList()
-                        labels.add("订单编号:" + currentOrder!!.trade_no)
-                        labels.add("验收时间:" + createTimeSdf1.format(Date()))
-                        labels.add("商品名称:" + currentGoodsInfo!!.name)
-                        labels.add("配送数量:" + currentGoodsInfo!!.deliver_quantity + currentGoodsInfo!!.deliver_unit)
-                        labels.add("验收批次:" + (imgData.size + reBatch + 1).toString())
-                        labels.add("本批数量:" + currentWeight + currentGoodsInfo!!.deliver_unit)
-                        makeWater(photoFile, labels, imgData.size + reBatch, currentWeight)
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            setGalleryThumbnail(savedUri)
-                        }
-
-                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-                            sendBroadcast(
-                                Intent(
-                                    android.hardware.Camera.ACTION_NEW_PICTURE,
-                                    savedUri
-                                )
-                            )
-                        }
-
-                        val mimeType = MimeTypeMap.getSingleton()
-                            .getMimeTypeFromExtension(savedUri.toFile().extension)
-                        MediaScannerConnection.scanFile(
-                            this@CheckActivity,
-                            arrayOf(savedUri.toString()),
-                            arrayOf(mimeType)
-                        ) { _, uri ->
-                        }
-                    }
-                })
+        if (mCameraHelper == null || !mCameraHelper!!.isCameraOpened) {
+            toast("摄像头连接失败!")
+            return
         }
+        val photoFile = createFile(
+            outputDirectory,
+            getString(R.string.output_photo_date_template),
+            getString(R.string.output_photo_ext)
+        )
+        mCameraHelper!!.capturePicture(photoFile.absolutePath,
+            OnCaptureListener { path ->
+                if (TextUtils.isEmpty(path)) {
+                    return@OnCaptureListener
+                }
+                val savedUri = Uri.fromFile(photoFile)
+                val createTimeSdf1 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                var reBatch = 0
+                if (currentGoodsInfo!!.batch.isNotEmpty()) {
+                    reBatch = currentGoodsInfo!!.batch.toInt() + 1
+                }
+                val labels: MutableList<String> =
+                    ArrayList()
+                labels.add("订单编号:" + currentOrder!!.trade_no)
+                labels.add("验收时间:" + createTimeSdf1.format(Date()))
+                labels.add("商品名称:" + currentGoodsInfo!!.name)
+                labels.add("配送数量:" + currentGoodsInfo!!.deliver_quantity + currentGoodsInfo!!.deliver_unit)
+                labels.add("验收批次:" + (imgData.size + reBatch + 1).toString())
+                labels.add("本批数量:" + currentWeight + currentGoodsInfo!!.deliver_unit)
+                makeWater(photoFile, labels, imgData.size + reBatch, currentWeight)
+
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                    sendBroadcast(
+                        Intent(
+                            android.hardware.Camera.ACTION_NEW_PICTURE,
+                            savedUri
+                        )
+                    )
+                }
+
+                val mimeType = MimeTypeMap.getSingleton()
+                    .getMimeTypeFromExtension(savedUri.toFile().extension)
+                MediaScannerConnection.scanFile(
+                    this@CheckActivity,
+                    arrayOf(savedUri.toString()),
+                    arrayOf(mimeType)
+                ) { _, uri ->
+                }
+            })
     }
 
-    private fun aspectRatio(width: Int, height: Int): Int {
-        val previewRatio = max(width, height).toDouble() / min(width, height)
-        if (abs(previewRatio - RATIO_4_3_VALUE) <= abs(previewRatio - RATIO_16_9_VALUE)) {
-            return AspectRatio.RATIO_4_3
+
+    private fun takePhoto(currentWeight: String) {
+//        imageCapture?.let { imageCapture ->
+        val photoFile = createFile(
+            outputDirectory,
+            getString(R.string.output_photo_date_template),
+            getString(R.string.output_photo_ext)
+        )
+//            val metadata = ImageCapture.Metadata().apply {
+//                isReversedHorizontal = lensFacing == CameraSelector.LENS_FACING_FRONT
+//            }
+
+//            val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile)
+//                .setMetadata(metadata)
+//                .build()
+
+//            imageCapture.takePicture(
+//                outputOptions,
+//                cameraExecutor,
+//                object : ImageCapture.OnImageSavedCallback {
+//                    override fun onError(exc: ImageCaptureException) {
+//                    }
+//
+//                    override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+        val savedUri = Uri.fromFile(photoFile)
+        val createTimeSdf1 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        var reBatch = 0
+        if (currentGoodsInfo!!.batch.isNotEmpty()) {
+            reBatch = currentGoodsInfo!!.batch.toInt() + 1
         }
-        return AspectRatio.RATIO_16_9
+        val labels: MutableList<String> =
+            ArrayList()
+        labels.add("订单编号:" + currentOrder!!.trade_no)
+        labels.add("验收时间:" + createTimeSdf1.format(Date()))
+        labels.add("商品名称:" + currentGoodsInfo!!.name)
+        labels.add("配送数量:" + currentGoodsInfo!!.deliver_quantity + currentGoodsInfo!!.deliver_unit)
+        labels.add("验收批次:" + (imgData.size + reBatch + 1).toString())
+        labels.add("本批数量:" + currentWeight + currentGoodsInfo!!.deliver_unit)
+        makeWater(photoFile, labels, imgData.size + reBatch, currentWeight)
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            sendBroadcast(
+                Intent(
+                    android.hardware.Camera.ACTION_NEW_PICTURE,
+                    savedUri
+                )
+            )
+        }
+
+        val mimeType = MimeTypeMap.getSingleton()
+            .getMimeTypeFromExtension(savedUri.toFile().extension)
+        MediaScannerConnection.scanFile(
+            this@CheckActivity,
+            arrayOf(savedUri.toString()),
+            arrayOf(mimeType)
+        ) { _, uri ->
+        }
     }
 
     private fun setGalleryThumbnail(uri: Uri) {
@@ -622,8 +577,6 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
         )
 
     companion object {
-        private const val RATIO_4_3_VALUE = 4.0 / 3.0
-        private const val RATIO_16_9_VALUE = 16.0 / 9.0
         fun getOutputDirectory(context: Context): File {
             val appContext = context.applicationContext
             val mediaDir = context.externalMediaDirs.firstOrNull()?.let {
@@ -640,7 +593,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
         val single: Single<String> = Single.create { emitter ->
             val oldBitmap = BitmapFactory.decodeStream(FileInputStream(inputPath))
             val waterBitmap =
-                addTimeFlag(this@CheckActivity, labels, 0, 12, "#ffffff", oldBitmap)
+                addTimeFlag(this@CheckActivity, labels, 0, 20, "#ffffff", oldBitmap)
             val file = createWaterFile(
                 outputDirectory,
                 getString(R.string.output_photo_date_template),
@@ -650,7 +603,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
             var ret = false
             try {
                 os = BufferedOutputStream(FileOutputStream(file))
-                ret = waterBitmap!!.compress(Bitmap.CompressFormat.JPEG, 80, os)
+                ret = waterBitmap!!.compress(Bitmap.CompressFormat.JPEG, 90, os)
                 waterBitmap.recycle()
                 os.close()
             } catch (e: IOException) {
@@ -879,6 +832,81 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
         immersionBar {
             hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR)
             init()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mCameraHelper?.unregisterUSB()
+    }
+
+    private fun hasCamera() {
+        outputDirectory = getOutputDirectory(this)
+        mCameraHelper = UVCCameraHelper.getInstance()
+        mUVCCameraView = mBinding.hasCamera as CameraViewInterface
+        mUVCCameraView?.let {
+            it.setCallback(object : CameraViewInterface.Callback {
+                override fun onSurfaceCreated(view: CameraViewInterface?, surface: Surface?) {
+                    if (!isPreview && mCameraHelper!!.isCameraOpened) {
+                        mCameraHelper!!.startPreview(mUVCCameraView)
+                        isPreview = true
+                    }
+                }
+
+                override fun onSurfaceChanged(
+                    view: CameraViewInterface?,
+                    surface: Surface?,
+                    width: Int,
+                    height: Int
+                ) {
+
+                }
+
+                override fun onSurfaceDestroy(view: CameraViewInterface?, surface: Surface?) {
+                    if (isPreview && mCameraHelper!!.isCameraOpened) {
+                        mCameraHelper!!.stopPreview()
+                        isPreview = false
+                    }
+                }
+            })
+        }
+        mCameraHelper?.let {
+            it.setDefaultPreviewSize(1280, 720)
+            it.setDefaultFrameFormat(UVCCameraHelper.FRAME_FORMAT_MJPEG)
+            it.initUSBMonitor(
+                this@CheckActivity,
+                mUVCCameraView,
+                object : UVCCameraHelper.OnMyDevConnectListener {
+                    override fun onAttachDev(device: UsbDevice?) {
+                        if (!isRequest) {
+                            isRequest = true
+                            mCameraHelper?.requestPermission(0)
+                        }
+                    }
+
+                    override fun onDettachDev(device: UsbDevice?) {
+                        // close camera
+                        if (isRequest) {
+                            isRequest = false
+                            mCameraHelper?.closeCamera()
+                        }
+                    }
+
+                    override fun onConnectDev(device: UsbDevice?, isConnected: Boolean) {
+                        isPreview = isConnected
+                        if (isConnected) {
+                            runOnUiThread {
+                                Handler().postDelayed({
+                                    mBinding.pbStarting.visibility = View.GONE
+                                }, 1500)
+                            }
+                        }
+                    }
+
+                    override fun onDisConnectDev(device: UsbDevice?) {
+
+                    }
+                })
         }
     }
 }
