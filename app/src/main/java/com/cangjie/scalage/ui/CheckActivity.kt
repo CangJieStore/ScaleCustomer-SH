@@ -51,6 +51,14 @@ import com.fondesa.recyclerviewdivider.dividerBuilder
 import com.google.gson.Gson
 import com.gyf.immersionbar.BarHide
 import com.gyf.immersionbar.ktx.immersionBar
+<<<<<<< Updated upstream
+=======
+import com.lgh.uvccamera.UVCCameraProxy
+import com.lgh.uvccamera.bean.PicturePath
+import com.lgh.uvccamera.callback.ConnectCallback
+import com.lgh.uvccamera.callback.PictureCallback
+import com.lgh.uvccamera.utils.FileUtil
+>>>>>>> Stashed changes
 import io.reactivex.Single
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
@@ -337,20 +345,35 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
                             }
                         }
                     }
+<<<<<<< Updated upstream
                     val currentNum = deliveryCount()
                     takePhoto(currentNum)
+=======
+                    if (isPreview) {
+                        takePicture()
+                    } else {
+                        val currentNum = deliveryCount()
+                        var reBatch = 0
+                        if (currentGoodsInfo!!.batch.isNotEmpty()) {
+                            reBatch = currentGoodsInfo!!.batch.toInt() + 1
+                        }
+                        saveRecord(reBatch + submitList.size, currentNum, "")
+                    }
+>>>>>>> Stashed changes
                 }
             }
             200 -> {//submit response
-                for (item in submitList) {
-                    viewModel.add(
-                        SubmitOrder(
-                            goodsId = currentGoodsInfo!!.id,
-                            batchId = item.batch,
-                            batchPath = item.batch_path,
-                            isUpload = 1
+                if (isPreview) {
+                    for (item in submitList) {
+                        viewModel.add(
+                            SubmitOrder(
+                                goodsId = currentGoodsInfo!!.id,
+                                batchId = item.batch,
+                                batchPath = item.batch_path,
+                                isUpload = 1
+                            )
                         )
-                    )
+                    }
                 }
                 viewModel.loadDetail(orderID!!)
                 toast("提交成功")
@@ -640,7 +663,18 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
         val single: Single<String> = Single.create { emitter ->
             val oldBitmap = BitmapFactory.decodeStream(FileInputStream(inputPath))
             val waterBitmap =
+<<<<<<< Updated upstream
                 addTimeFlag(this@CheckActivity, labels, 0, 12, "#ffffff", oldBitmap)
+=======
+                addTimeFlag(
+                    this@CheckActivity,
+                    labels,
+                    0,
+                    15,
+                    "#ffffff",
+                    oldBitmap
+                )
+>>>>>>> Stashed changes
             val file = createWaterFile(
                 outputDirectory,
                 getString(R.string.output_photo_date_template),
@@ -739,9 +773,9 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
         canvas.rotate(degress.toFloat())
         var spacing = 0
         for (label in labels) {
-            Log.e("label", label);
-            canvas.drawText(label, 20f, 35f + spacing.toFloat(), paint)
-            spacing += 25
+            Log.e("label", label)
+            canvas.drawText(label, 20f, 30f + spacing.toFloat(), paint)
+            spacing += 30
         }
         canvas.restore()
         return newBitmap
@@ -881,4 +915,101 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
             init()
         }
     }
+<<<<<<< Updated upstream
+=======
+
+    private fun hasCamera() {
+        outputDirectory = getOutputDirectory(this)
+        mUVCCamera = UVCCameraProxy(this)
+        mUVCCamera?.let {
+            it.config
+                .isDebug(true)
+                .setPicturePath(PicturePath.APPCACHE)
+                .setDirName("Terminal")
+                .setProductId(0).vendorId = 0
+            it.setPreviewTexture(mBinding.preview)
+            it.setConnectCallback(object : ConnectCallback {
+                override fun onAttached(usbDevice: UsbDevice?) {
+                    it.requestPermission(usbDevice)
+                }
+
+                override fun onGranted(usbDevice: UsbDevice?, granted: Boolean) {
+                    if (granted) {
+                        it.connectDevice(usbDevice)
+                    }
+                }
+
+                override fun onConnected(usbDevice: UsbDevice?) {
+                    it.openCamera()
+                }
+
+                override fun onCameraOpened() {
+                    isPreview = true
+                    it.setPreviewSize(1280, 720)
+                    it.startPreview()
+                    runOnUiThread {
+                        Handler().postDelayed({
+                            mBinding.pbStarting.visibility = View.GONE
+                        }, 1200)
+                    }
+                }
+
+                override fun onDetached(usbDevice: UsbDevice?) {
+                    isPreview = false
+                    it.closeCamera()
+                }
+
+                override fun onHasCamera(hasCamera: Boolean) {
+                    runOnUiThread {
+                        Handler().postDelayed({
+                            mBinding.pbStarting.visibility = View.GONE
+                            mBinding.tvCameraStatus.visibility = View.VISIBLE
+                        }, 1200)
+                    }
+
+                }
+            })
+            it.setPictureTakenCallback(object : PictureCallback {
+                override fun onPictureTaken(path: String?) {
+                    if (TextUtils.isEmpty(path)) {
+                        return
+                    }
+                    val currentWeight = deliveryCount()
+                    val savedUri = Uri.parse(path)
+                    val createTimeSdf1 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                    var reBatch = 0
+                    if (currentGoodsInfo!!.batch.isNotEmpty()) {
+                        reBatch = currentGoodsInfo!!.batch.toInt() + 1
+                    }
+                    val labels: MutableList<String> =
+                        ArrayList()
+                    labels.add("订单编号:" + currentOrder!!.trade_no)
+                    labels.add("验收时间:" + createTimeSdf1.format(Date()))
+                    labels.add("商品名称:" + currentGoodsInfo!!.name)
+                    labels.add("配送数量:" + currentGoodsInfo!!.deliver_quantity + currentGoodsInfo!!.deliver_unit)
+                    labels.add("验收批次:" + (imgData.size + reBatch + 1).toString())
+                    labels.add("本批数量:" + currentWeight + currentGoodsInfo!!.deliver_unit)
+                    makeWater(File(path!!), labels, imgData.size + reBatch, currentWeight)
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                        sendBroadcast(
+                            Intent(
+                                android.hardware.Camera.ACTION_NEW_PICTURE,
+                                savedUri
+                            )
+                        )
+                    }
+
+                    val mimeType = MimeTypeMap.getSingleton()
+                        .getMimeTypeFromExtension(savedUri.toFile().extension)
+                    MediaScannerConnection.scanFile(
+                        this@CheckActivity,
+                        arrayOf(savedUri.toString()),
+                        arrayOf(mimeType)
+                    ) { _, uri ->
+                    }
+                }
+            })
+        }
+    }
+>>>>>>> Stashed changes
 }

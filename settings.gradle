@@ -11,3 +11,4 @@ dependencyResolutionManagement {
 rootProject.name = "ScaleCustomerCheck-SH"
 include ':app'
 include ':ncalendar'
+include ':lib_uvccamera'

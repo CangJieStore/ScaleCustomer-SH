@@ -1,0 +1,2 @@
+com.lgh.uvccamera
+string app_name

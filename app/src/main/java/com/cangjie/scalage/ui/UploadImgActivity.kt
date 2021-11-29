@@ -44,7 +44,7 @@ class UploadImgActivity : BaseActivity<ActivityUploadImgBinding>() {
                 mBinding.pbUpload.progress = percent.toInt()
                 """${percent.toInt()}%""".also { mBinding.tvPercent.text = it }
                 if (lessSize == totalSize) {
-                    mBinding.tvUploadSize.text = "上传完成"
+                    mBinding.tvUploadProgress.text = "上传完成"
                     mBinding.ivClose.visibility = View.VISIBLE
                     Handler().postDelayed({ finish() }, 1500)
                 }
