@@ -328,20 +328,22 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
                         if (currentGoodsInfo!!.batch.isNotEmpty()) {
                             reBatch = currentGoodsInfo!!.batch.toInt() + 1
                         }
-//                        saveRecord()
+                        saveRecord(reBatch + submitList.size, currentNum, "")
                     }
                 }
             }
             200 -> {//submit response
-                for (item in submitList) {
-                    viewModel.add(
-                        SubmitOrder(
-                            goodsId = currentGoodsInfo!!.id,
-                            batchId = item.batch,
-                            batchPath = item.batch_path,
-                            isUpload = 1
+                if (isPreview) {
+                    for (item in submitList) {
+                        viewModel.add(
+                            SubmitOrder(
+                                goodsId = currentGoodsInfo!!.id,
+                                batchId = item.batch,
+                                batchPath = item.batch_path,
+                                isUpload = 1
+                            )
                         )
-                    )
+                    }
                 }
                 viewModel.loadDetail(orderID!!)
                 toast("提交成功")
@@ -486,7 +488,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
         val single: Single<String> = Single.create { emitter ->
             val oldBitmap = BitmapFactory.decodeStream(FileInputStream(inputPath))
             val waterBitmap =
-                addTimeFlag(this@CheckActivity, labels, 0, 20, "#ffffff", oldBitmap)
+                addTimeFlag(this@CheckActivity, labels, 0, 15, "#ffffff", oldBitmap)
             val file = createWaterFile(
                 outputDirectory,
                 getString(R.string.output_photo_date_template),
@@ -591,8 +593,8 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
         var spacing = 0
         for (label in labels) {
             Log.e("label", label);
-            canvas.drawText(label, 20f, 35f + spacing.toFloat(), paint)
-            spacing += 25
+            canvas.drawText(label, 20f, 30f + spacing.toFloat(), paint)
+            spacing += 30
         }
         canvas.restore()
         return newBitmap
@@ -741,8 +743,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
                 .isDebug(true)
                 .setPicturePath(PicturePath.APPCACHE)
                 .setDirName("Terminal")
-                .setProductId(0)
-                .setVendorId(0)
+                .setProductId(0).vendorId = 0
             it.setPreviewTexture(mBinding.preview)
             it.setConnectCallback(object : ConnectCallback {
                 override fun onAttached(usbDevice: UsbDevice?) {
