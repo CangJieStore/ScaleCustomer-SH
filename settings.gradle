@@ -1,5 +1,4 @@
 rootProject.name = "ScaleCustomerCheck-SH"
 include ':app'
 include ':ncalendar'
-include ':libuvccamera'
-include ':lib_aar'
+include ':lib_uvccamera'

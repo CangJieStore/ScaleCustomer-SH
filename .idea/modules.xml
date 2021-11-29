@@ -4,8 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScaleCustomerCheck-SH.iml" filepath="$PROJECT_DIR$/.idea/modules/ScaleCustomerCheck-SH.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ScaleCustomerCheck-SH.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ScaleCustomerCheck-SH.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_aar/ScaleCustomerCheck-SH.lib_aar.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_aar/ScaleCustomerCheck-SH.lib_aar.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/libuvccamera/ScaleCustomerCheck-SH.libuvccamera.iml" filepath="$PROJECT_DIR$/.idea/modules/libuvccamera/ScaleCustomerCheck-SH.libuvccamera.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib_uvccamera/ScaleCustomerCheck-SH.lib_uvccamera.iml" filepath="$PROJECT_DIR$/.idea/modules/lib_uvccamera/ScaleCustomerCheck-SH.lib_uvccamera.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ncalendar/ScaleCustomerCheck-SH.ncalendar.iml" filepath="$PROJECT_DIR$/.idea/modules/ncalendar/ScaleCustomerCheck-SH.ncalendar.iml" />
     </modules>
   </component>

@@ -11,8 +11,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/lib_aar" />
-            <option value="$PROJECT_DIR$/libuvccamera" />
+            <option value="$PROJECT_DIR$/lib_uvccamera" />
             <option value="$PROJECT_DIR$/ncalendar" />
           </set>
         </option>
