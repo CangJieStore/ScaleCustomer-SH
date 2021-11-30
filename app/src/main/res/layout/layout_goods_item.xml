@@ -86,7 +86,7 @@
             android:layout_weight="0.6"
             android:gravity="center"
             android:padding="@dimen/dp8"
-            android:text="@{info.deliver_quantity}"
+            android:text="@{info.receive_quantity}"
             android:textColor="@color/black_3"
             android:textSize="@dimen/sp16" />
 
