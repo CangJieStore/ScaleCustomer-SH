@@ -12,7 +12,7 @@ android {
         applicationId "com.cangjie.scalage"
         minSdk 21
         targetSdk 31
-        versionCode 12
+        versionCode 13
         versionName "1.7.3"
     }
     buildFeatures {
@@ -95,11 +95,6 @@ dependencies {
     implementation "androidx.camera:camera-lifecycle:$camerax_version"
     implementation 'androidx.camera:camera-view:1.0.0-alpha27'
 
-//    implementation "androidx.camera:camera-core:1.1.0-alpha03"
-//    implementation "androidx.camera:camera-lifecycle:1.1.0-alpha03"
-//    implementation "androidx.camera:camera-camera2:1.1.0-alpha03"
-//    implementation "androidx.camera:camera-view:1.0.0-alpha23"
-//    implementation "androidx.camera:camera-extensions:1.0.0-alpha23"
 
     implementation 'com.wdullaer:materialdatetimepicker:4.2.3'
     api 'com.liulishuo.filedownloader:library:1.7.7'

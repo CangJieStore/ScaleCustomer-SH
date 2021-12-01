@@ -359,8 +359,8 @@ public class AppUpdateUtils {
                         for (MD5CheckListener md5CheckListener : getAllMD5CheckListener()) {
                             md5CheckListener.fileMd5CheckSuccess();
                         }
-                        AutoInstaller.getDefault(mContext).install(newFile);
-//                        AppUtils.installApkFile(mContext, newFile);
+//                        AutoInstaller.getDefault(mContext).install(newFile);
+                        AppUtils.installApkFile(mContext, newFile);
                         LogUtils.log("文件MD5校验成功");
                     } else {
                         //校验失败
@@ -371,16 +371,16 @@ public class AppUpdateUtils {
                     }
                 } catch (Exception e) {
                     LogUtils.log("文件MD5解析失败，抛出异常：" + e.getMessage());
-                    AutoInstaller.getDefault(mContext).install(newFile);
+//                    AutoInstaller.getDefault(mContext).install(newFile);
 
                     //安装文件
-//                    AppUtils.installApkFile(mContext, newFile);
+                    AppUtils.installApkFile(mContext, newFile);
                 }
             } else {
                 //安装文件
-                AutoInstaller.getDefault(mContext).install(newFile);
+//                AutoInstaller.getDefault(mContext).install(newFile);
 
-//                AppUtils.installApkFile(mContext, newFile);
+                AppUtils.installApkFile(mContext, newFile);
             }
         }
     }
