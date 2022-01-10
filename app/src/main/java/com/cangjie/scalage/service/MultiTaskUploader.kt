@@ -57,7 +57,7 @@ object MultiTaskUploader {
         }
         val file = File(task.batchPath)
         if (file.exists()) {
-            val disposable = RxHttp.postForm(Url.upload)
+            val disposable = RxHttp.postForm(CangJie.getString("upload"))
                 .add("access_token", CangJie.getString("token"))
                 .add("id", task.goodsId)
                 .add("batch", task.batchId.toInt() - 1)

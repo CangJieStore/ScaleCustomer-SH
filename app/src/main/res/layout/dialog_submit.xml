@@ -229,7 +229,7 @@
                     android:background="@drawable/selector_type_submit"
                     android:button="@null"
                     android:gravity="center"
-                    android:text="先入后领型"
+                    android:text="先入后出型"
                     android:textColor="@color/color_input_submit"
                     android:textSize="@dimen/sp18" />
             </LinearLayout>

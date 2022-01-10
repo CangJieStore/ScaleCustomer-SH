@@ -174,6 +174,7 @@ class ScaleViewModel : BaseScaleViewModel() {
             200 -> {
                 val loginInfo = result as LoginInfo
                 CangJie.put("token", loginInfo.access_token)
+                CangJie.put("upload", loginInfo.picture_upload_url)
                 toast("登录成功")
                 action(MsgEvent(0))
             }

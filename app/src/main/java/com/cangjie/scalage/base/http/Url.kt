@@ -6,13 +6,13 @@ object Url {
 
     @JvmField
     @DefaultDomain
-    var baseUrl = "https://st.shian360.com/"
+    var baseUrl = "https://api.shian360.com/"
 
-    const val update = "openapi/?op=upgrade"
-    const val login = "openapi/?op=login"
-    const val orders = "openapi/?op=order"
-    const val submit = "openapi/?op=weight"
-    const val upload = "openapi/?op=picture"
-    const val again = "openapi/?op=repair"
-    const val clear = "openapi/?op=clear"
+    const val update = "st/steelyard/?op=upgrade"
+    const val login = "st/steelyard/?op=login"
+    const val orders = "st/steelyard/?op=order"
+    const val submit = "st/steelyard/?op=weight"
+    const val upload = "st/steelyard/?op=picture"
+    const val again = "st/steelyard/?op=repair"
+    const val clear = "st/steelyard/?op=clear"
 }

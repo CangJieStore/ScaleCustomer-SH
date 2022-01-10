@@ -162,7 +162,11 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
             EditPriceDialogFragment("本次数量", "请输入...").setContentCallback(object :
                 EditPriceDialogFragment.ContentCallback {
                 override fun content(content: String?) {
-                    mBinding.editCurrentCount.text = content
+                    content?.let {
+                        if (!it.startsWith(".")) {
+                            mBinding.editCurrentCount.text = content
+                        }
+                    }
                 }
             }).show(supportFragmentManager)
         }
