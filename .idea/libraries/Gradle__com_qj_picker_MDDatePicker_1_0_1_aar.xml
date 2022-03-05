@@ -8,6 +8,8 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/42648f2a332d56a1cc6e60a9436b66f1/transformed/jetified-MDDatePicker-1.0.1/annotations.zip!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/5e514e7906cc0ae3fff6c99ba124157b/transformed/jetified-MDDatePicker-1.0.1/annotations.zip!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/9cb2a054601325d5f82501a40ea5a4cc/transformed/jetified-MDDatePicker-1.0.1/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/40cda1f484a7923505f09f151ab0d811/transformed/jetified-MDDatePicker-1.0.1/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c54b9e7f049eba99512cf7bab50b2e33/transformed/jetified-MDDatePicker-1.0.1/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/139034cb28cd0d67a661090236d9f322/transformed/jetified-MDDatePicker-1.0.1/jars/classes.jar!/" />
@@ -31,6 +33,12 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9cb2a054601325d5f82501a40ea5a4cc/transformed/jetified-MDDatePicker-1.0.1/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/9cb2a054601325d5f82501a40ea5a4cc/transformed/jetified-MDDatePicker-1.0.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9cb2a054601325d5f82501a40ea5a4cc/transformed/jetified-MDDatePicker-1.0.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/40cda1f484a7923505f09f151ab0d811/transformed/jetified-MDDatePicker-1.0.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/40cda1f484a7923505f09f151ab0d811/transformed/jetified-MDDatePicker-1.0.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/40cda1f484a7923505f09f151ab0d811/transformed/jetified-MDDatePicker-1.0.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c54b9e7f049eba99512cf7bab50b2e33/transformed/jetified-MDDatePicker-1.0.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c54b9e7f049eba99512cf7bab50b2e33/transformed/jetified-MDDatePicker-1.0.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c54b9e7f049eba99512cf7bab50b2e33/transformed/jetified-MDDatePicker-1.0.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.qj.picker/MDDatePicker/1.0.1/d276560c9e935797264a346672160864ba196e77/MDDatePicker-1.0.1-javadoc.jar!/" />

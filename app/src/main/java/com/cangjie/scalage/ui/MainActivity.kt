@@ -7,6 +7,7 @@ import com.cangjie.scalage.BR
 import com.cangjie.scalage.R
 import com.cangjie.scalage.base.BaseFragmentPagerAdapter
 import com.cangjie.scalage.base.DateUtil
+import com.cangjie.scalage.base.getLocalVersionName
 import com.cangjie.scalage.base.workOnIO
 import com.cangjie.scalage.core.BaseMvvmActivity
 import com.cangjie.scalage.core.event.MsgEvent
@@ -50,6 +51,7 @@ class MainActivity : BaseMvvmActivity<ActivityMainBinding, ScaleViewModel>() {
     override fun initActivity(savedInstanceState: Bundle?) {
         viewModel.loadUpdate()
         mBinding.vpOrders.adapter = mAdapter
+        mBinding.tvVersion.text= getLocalVersionName(this)
         mBinding.tabOrders.setViewPager(mBinding.vpOrders)
         mBinding.tabOrders.currentTab = 0
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")

@@ -1,5 +1,8 @@
 package com.cangjie.scalage.base
 
+import android.content.Context
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.text.SimpleDateFormat
@@ -22,7 +25,18 @@ internal fun getNow(): String {
             .toString() + "-" + tms.get(Calendar.DAY_OF_MONTH).toString()
     }
 }
+fun getLocalVersionName(ctx: Context): String {
+    var localVersion = ""
+    try {
+        val packageInfo: PackageInfo = ctx.applicationContext
+            .packageManager
+            .getPackageInfo(ctx.packageName, 0)
+        localVersion = packageInfo.versionName
+    } catch (e: PackageManager.NameNotFoundException) {
 
+    }
+    return "v$localVersion"
+}
 fun AppCompatActivity.showToast(text: String) {
     runOnUiThread { Toast.makeText(this, text, Toast.LENGTH_SHORT).show() }
 }
