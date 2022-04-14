@@ -148,7 +148,12 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
             if (choosePosition != currentGoodsInfo) {
                 currentShell = 0.0F
                 updateWeight()
-                returnZero()
+                if (currentDeliveryType == 1 ) {
+                    if(mBinding.tvCurrentWeight.text.toString()!="0.0"){
+
+                    }
+                    returnZero()
+                }
                 submitList.clear()
                 imgData.clear()
                 imgAdapter.data.clear()
@@ -482,7 +487,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
 
     override fun subscribeModel(model: ScaleViewModel) {
         super.subscribeModel(model)
-        model.currentOrder.observe(this, {
+        model.currentOrder.observe(this) {
             it?.let {
                 currentOrder = it
                 mBinding.info = currentOrder
@@ -501,6 +506,9 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
                         if (checkAdapter.data.size > 0) {
                             currentGoodsInfo = checkAdapter.data[0]
                             handlerSelected()
+                            currentShell = 0.0F
+                            updateWeight()
+                            returnZero()
                             checkPosition(currentGoodsInfo!!)
                         } else {
                             currentGoodsInfo = null
@@ -510,8 +518,8 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
                     }
                 }
             }
-        })
-        model.allUploadOrders.observe(this, {
+        }
+        model.allUploadOrders.observe(this) {
             if (it.size > 0) {
                 val data = arrayListOf<UploadTask>()
                 it.forEach { item ->
@@ -535,7 +543,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
                 intent.putExtras(bundle)
                 startActivity(intent)
             }
-        })
+        }
     }
 
     private fun checkPosition(item: GoodsInfo) {

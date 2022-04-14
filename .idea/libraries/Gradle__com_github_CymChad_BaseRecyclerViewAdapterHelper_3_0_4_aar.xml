@@ -1,15 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a4eba3dcec31f9e8f7e4f9a641428db0/transformed/jetified-BaseRecyclerViewAdapterHelper-3.0.4/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/a4eba3dcec31f9e8f7e4f9a641428db0/transformed/jetified-BaseRecyclerViewAdapterHelper-3.0.4/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a4eba3dcec31f9e8f7e4f9a641428db0/transformed/jetified-BaseRecyclerViewAdapterHelper-3.0.4/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a4eba3dcec31f9e8f7e4f9a641428db0/transformed/jetified-BaseRecyclerViewAdapterHelper-3.0.4/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/a4eba3dcec31f9e8f7e4f9a641428db0/transformed/jetified-BaseRecyclerViewAdapterHelper-3.0.4/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a4eba3dcec31f9e8f7e4f9a641428db0/transformed/jetified-BaseRecyclerViewAdapterHelper-3.0.4/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a4eba3dcec31f9e8f7e4f9a641428db0/transformed/jetified-BaseRecyclerViewAdapterHelper-3.0.4/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/a4eba3dcec31f9e8f7e4f9a641428db0/transformed/jetified-BaseRecyclerViewAdapterHelper-3.0.4/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/a4eba3dcec31f9e8f7e4f9a641428db0/transformed/jetified-BaseRecyclerViewAdapterHelper-3.0.4/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/f33d235d1489a677d76242709ed4b684/transformed/jetified-BaseRecyclerViewAdapterHelper-3.0.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f33d235d1489a677d76242709ed4b684/transformed/jetified-BaseRecyclerViewAdapterHelper-3.0.4/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f33d235d1489a677d76242709ed4b684/transformed/jetified-BaseRecyclerViewAdapterHelper-3.0.4/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

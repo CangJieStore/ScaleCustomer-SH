@@ -5,13 +5,10 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f5f26c97f1ed7e8462e4cca9e3641ec1/transformed/jetified-lifecycle-service-2.3.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/50455f5c8d2392a27699a739841f7f03/transformed/jetified-lifecycle-service-2.3.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8d8bcdb376eb1a16ce1c13ae7f8b9d1d/transformed/jetified-lifecycle-service-2.3.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3bfd5107534afbf86ab8dbfb1387c2ca/transformed/jetified-lifecycle-service-2.3.1/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/3bfd5107534afbf86ab8dbfb1387c2ca/transformed/jetified-lifecycle-service-2.3.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3bfd5107534afbf86ab8dbfb1387c2ca/transformed/jetified-lifecycle-service-2.3.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3bfd5107534afbf86ab8dbfb1387c2ca/transformed/jetified-lifecycle-service-2.3.1/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/3bfd5107534afbf86ab8dbfb1387c2ca/transformed/jetified-lifecycle-service-2.3.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3bfd5107534afbf86ab8dbfb1387c2ca/transformed/jetified-lifecycle-service-2.3.1/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/3bfd5107534afbf86ab8dbfb1387c2ca/transformed/jetified-lifecycle-service-2.3.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3a46cc5d649969233fb98b77e897c905/transformed/jetified-lifecycle-service-2.3.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3a46cc5d649969233fb98b77e897c905/transformed/jetified-lifecycle-service-2.3.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/3a46cc5d649969233fb98b77e897c905/transformed/jetified-lifecycle-service-2.3.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
