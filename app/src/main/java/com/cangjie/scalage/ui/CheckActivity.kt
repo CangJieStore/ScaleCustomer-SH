@@ -149,10 +149,9 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
                 currentShell = 0.0F
                 updateWeight()
                 if (currentDeliveryType == 1 ) {
-                    if(mBinding.tvCurrentWeight.text.toString()!="0.0"){
-
+                    if(mBinding.tvCurrentWeight.text.toString()=="0.00"){
+                        returnZero()
                     }
-                    returnZero()
                 }
                 submitList.clear()
                 imgData.clear()
@@ -1050,7 +1049,6 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
         canvas.rotate(degress.toFloat())
         var spacing = 0
         for (label in labels) {
-            Log.e("label", label);
             canvas.drawText(label, 20f, 35f + spacing.toFloat(), paint)
             spacing += 25
         }
