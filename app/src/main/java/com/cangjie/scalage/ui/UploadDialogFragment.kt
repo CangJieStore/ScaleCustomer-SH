@@ -85,12 +85,11 @@ class UploadDialogFragment : DialogFragment() {
             })
             uploadImageAdapter.setList(uploadOrders)
             MultiTaskUploader.addTasks(uploadOrders)
-            MultiTaskUploader.allLiveTask.observe(this, {
-
+            MultiTaskUploader.allLiveTask.observe(this) {
                 if (!MultiTaskUploader.haveTaskExecuting()) {
                     dialogUploadImgBinding!!.tvClose.visibility = View.VISIBLE
                 }
-            })
+            }
             MultiTaskUploader.startAllUploadTask()
         }
     }

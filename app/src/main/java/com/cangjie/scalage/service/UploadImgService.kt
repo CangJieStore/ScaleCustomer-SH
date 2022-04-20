@@ -64,11 +64,11 @@ class UploadImgService : Service(), CoroutineScope by MainScope() {
                         booksDao!!.update(submitOrder)
                     }
                 } else if (status == MultiTaskUploader.ERROR) {
-                    val submitOrder =
-                        SubmitOrder(item.id, item.goodsId, item.batchId, item.batchPath, 2)
-                    corLife.launch {
-                        booksDao!!.update(submitOrder)
-                    }
+//                    val submitOrder =
+//                        SubmitOrder(item.id, item.goodsId, item.batchId, item.batchPath, 2)
+//                    corLife.launch {
+//                        booksDao!!.update(submitOrder)
+//                    }
                 }
                 if (waitSize == 0) {
                     stopSelf()

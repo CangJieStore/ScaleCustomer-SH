@@ -88,6 +88,7 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
     private var cameraProvider: ProcessCameraProvider? = null
     private var camera: Camera? = null
     private var sliderAppearingJob: Job? = null
+    private var weightValue = 0.0
     private val displayManager by lazy {
         getSystemService(Context.DISPLAY_SERVICE) as DisplayManager
     }
@@ -148,10 +149,8 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
             if (choosePosition != currentGoodsInfo) {
                 currentShell = 0.0F
                 updateWeight()
-                if (currentDeliveryType == 1 ) {
-                    if(mBinding.tvCurrentWeight.text.toString()=="0.00"){
-                        returnZero()
-                    }
+                if (weightValue < 0.0) {
+                    returnZero()
                 }
                 submitList.clear()
                 imgData.clear()
@@ -507,7 +506,9 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
                             handlerSelected()
                             currentShell = 0.0F
                             updateWeight()
-                            returnZero()
+                            if (weightValue < 0.0) {
+                                returnZero()
+                            }
                             checkPosition(currentGoodsInfo!!)
                         } else {
                             currentGoodsInfo = null
@@ -571,6 +572,9 @@ class CheckActivity : BaseMvvmActivity<ActivityCheckBinding, ScaleViewModel>() {
                 ScaleModule.Instance(this@CheckActivity).RawValue - ScaleModule.Instance(this@CheckActivity).TareWeight,
                 ScaleModule.Instance(this@CheckActivity).SetDotPoint
             )
+            if (currentWeight.isNotEmpty()) {
+                weightValue = currentWeight.toDouble() * 2 - currentShell
+            }
             currentGoodsInfo?.let {
                 if (currentDeliveryType == 1) {
                     mBinding.tvDeliveryCurrent.text = formatUnit(currentWeight)

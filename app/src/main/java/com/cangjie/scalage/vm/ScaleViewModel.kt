@@ -1,6 +1,5 @@
 package com.cangjie.scalage.vm
 
-import android.provider.MediaStore
 import android.util.Log
 import androidx.collection.arrayMapOf
 import androidx.databinding.ObservableField
@@ -15,23 +14,16 @@ import com.cangjie.scalage.core.binding.BindingCommand
 import com.cangjie.scalage.core.db.CangJie
 import com.cangjie.scalage.core.event.MsgEvent
 import com.cangjie.scalage.db.AppDatabase
-import com.cangjie.scalage.entity.LoginInfo
-import com.cangjie.scalage.entity.OrderInfo
 import com.cangjie.scalage.db.SubmitOrder
 import com.cangjie.scalage.db.SubmitRepository
+import com.cangjie.scalage.entity.LoginInfo
+import com.cangjie.scalage.entity.OrderInfo
 import com.cangjie.scalage.entity.Update
-import com.cangjie.scalage.entity.UploadResult
-import com.cangjie.scalage.ui.ProgressCallback
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
-import okhttp3.Dispatcher
-import rxhttp.*
-import java.io.File
 
 /**
  * @author: guruohan
@@ -231,7 +223,6 @@ class ScaleViewModel : BaseScaleViewModel() {
                 val orders = booksDao.getUpload()
                 emit(orders)
             }.catch {
-                Log.e("info", it.errorMsg)
             }.collect {
                 allUploadOrders.postValue(it)
             }
