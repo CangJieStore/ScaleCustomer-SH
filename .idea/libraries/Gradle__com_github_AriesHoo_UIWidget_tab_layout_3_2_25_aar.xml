@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.AriesHoo.UIWidget:tab-layout:3.2.25@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e07cf78669899dcb161842db7426b4d6/transformed/jetified-tab-layout-3.2.25/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e07cf78669899dcb161842db7426b4d6/transformed/jetified-tab-layout-3.2.25/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/e07cf78669899dcb161842db7426b4d6/transformed/jetified-tab-layout-3.2.25/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/6867da32a3f34a6e40f9141c0bd4d086/transformed/jetified-tab-layout-3.2.25/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/6867da32a3f34a6e40f9141c0bd4d086/transformed/jetified-tab-layout-3.2.25/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/6867da32a3f34a6e40f9141c0bd4d086/transformed/jetified-tab-layout-3.2.25/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.AriesHoo.UIWidget/tab-layout/3.2.25/c3f34e18ac4c5cb707773c86946b03a182ad3cc2/tab-layout-3.2.25-javadoc.jar!/" />

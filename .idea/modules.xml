@@ -4,7 +4,13 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScaleCustomerCheck-SH.iml" filepath="$PROJECT_DIR$/.idea/modules/ScaleCustomerCheck-SH.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ScaleCustomerCheck-SH.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ScaleCustomerCheck-SH.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ScaleCustomerCheck-SH.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ScaleCustomerCheck-SH.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ScaleCustomerCheck-SH.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ScaleCustomerCheck-SH.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ScaleCustomerCheck-SH.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ScaleCustomerCheck-SH.app.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ncalendar/ScaleCustomerCheck-SH.ncalendar.iml" filepath="$PROJECT_DIR$/.idea/modules/ncalendar/ScaleCustomerCheck-SH.ncalendar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ncalendar/ScaleCustomerCheck-SH.ncalendar.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/ncalendar/ScaleCustomerCheck-SH.ncalendar.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ncalendar/ScaleCustomerCheck-SH.ncalendar.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ncalendar/ScaleCustomerCheck-SH.ncalendar.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ncalendar/ScaleCustomerCheck-SH.ncalendar.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/ncalendar/ScaleCustomerCheck-SH.ncalendar.unitTest.iml" />
     </modules>
   </component>
 </project>

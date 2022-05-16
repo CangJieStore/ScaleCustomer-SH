@@ -40,6 +40,10 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c1d1eff30ef659dadc9bebc5111250dc/transformed/jetified-commons-base-0.10.8/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c1d1eff30ef659dadc9bebc5111250dc/transformed/jetified-commons-base-0.10.8/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c1d1eff30ef659dadc9bebc5111250dc/transformed/jetified-commons-base-0.10.8/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/da507103ff3d5f74a33ba642c15a163c/transformed/jetified-commons-base-0.10.8/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/16499cb32c1b0d0b2cd958d30674f232/transformed/jetified-commons-base-0.10.8/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/16499cb32c1b0d0b2cd958d30674f232/transformed/jetified-commons-base-0.10.8/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/16499cb32c1b0d0b2cd958d30674f232/transformed/jetified-commons-base-0.10.8/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

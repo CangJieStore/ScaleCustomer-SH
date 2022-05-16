@@ -43,6 +43,7 @@ class ScaleApplication : Application() {
             UMConfigure.DEVICE_TYPE_PHONE,
             ""
         )
+        UMConfigure.setProcessEvent(true)
         CangJie.init(this)
         CangJie.config {
             multiProcess = true

@@ -4,17 +4,18 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import android.provider.MediaStore
-import android.util.Log
 import com.cangjie.scalage.base.ScaleApplication
 import com.cangjie.scalage.db.AppDatabase
 import com.cangjie.scalage.db.SubmitOrder
 import com.cangjie.scalage.db.SubmitOrderDao
 import com.cangjie.scalage.entity.UploadEvent
 import com.cangjie.scalage.entity.UploadTask
+import com.umeng.analytics.MobclickAgent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import org.greenrobot.eventbus.EventBus
 import java.io.File
+
 
 /**
  * @author: guruohan
@@ -63,12 +64,17 @@ class UploadImgService : Service(), CoroutineScope by MainScope() {
                     corLife.launch {
                         booksDao!!.update(submitOrder)
                     }
+                    val music: MutableMap<String, Any> = HashMap()
+                    music["order_id"] = submitOrder.goodsId
+                    music["batch_id"] = submitOrder.batchId
+                    music["status"] = "success" + item.message
+                    MobclickAgent.onEventObject(this@UploadImgService, "upload_img", music)
                 } else if (status == MultiTaskUploader.ERROR) {
-//                    val submitOrder =
-//                        SubmitOrder(item.id, item.goodsId, item.batchId, item.batchPath, 2)
-//                    corLife.launch {
-//                        booksDao!!.update(submitOrder)
-//                    }
+                    val music: MutableMap<String, Any> = HashMap()
+                    music["order_id"] = item.goodsId
+                    music["batch_id"] = item.batchId
+                    music["status"] = "fail" + item.message
+                    MobclickAgent.onEventObject(this@UploadImgService, "upload_img", music)
                 }
                 if (waitSize == 0) {
                     stopSelf()

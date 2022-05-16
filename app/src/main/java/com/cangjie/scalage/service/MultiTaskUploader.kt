@@ -2,6 +2,7 @@ package com.cangjie.scalage.service
 
 import androidx.lifecycle.MutableLiveData
 import com.cangjie.scalage.base.http.Url
+import com.cangjie.scalage.base.http.errorMsg
 import com.cangjie.scalage.core.db.CangJie
 import com.cangjie.scalage.entity.UploadTask
 import com.rxjava.rxlife.RxLife
@@ -73,9 +74,11 @@ object MultiTaskUploader {
                 }
                 .subscribe({
                     task.state = COMPLETED
+                    task.message=it
                     taskCallback?.upload(COMPLETED, waitTask.size, getAllTask().size, task)
                 }, {
                     task.state = FAIL
+                    task.message=it.errorMsg
                     taskCallback?.upload(FAIL, waitTask.size, getAllTask().size, task)
                 })
             task.state = UPLODING

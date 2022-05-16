@@ -17,5 +17,6 @@ class UploadTask(
     var isUpload: Int,
     var progress: Int = 0,
     var disposable: Disposable?,
-    var state: Int = 0
+    var state: Int = 0,
+    var message:String=""
 ) : Serializable
